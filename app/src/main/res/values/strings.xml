@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MoodMate</string>
+    <string name="login_title">Accedi per migliorare\nla tua giornata!</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="login_button">Login</string>
+    <string name="no_account">Non hai un account?</string>
+    <string name="register_link">Registrati!</string>
+</resources>
