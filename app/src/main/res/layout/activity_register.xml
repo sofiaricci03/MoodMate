@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#F8F9FA">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header Verde -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@color/button_login_green"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MoodMate"
+                android:textColor="@color/black"
+                android:textSize="36sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Registrati per migliorare\nla tua giornata!"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="24dp"/>
+
+            <!-- Email -->
+            <TextView
+                android:text="Email"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"/>
+            <EditText
+                android:id="@+id/regEmail"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/edit_text_background"
+                android:hint="Inserisci email"
+                android:inputType="textEmailAddress"
+                android:paddingHorizontal="16dp"
+                android:importantForAutofill="no"/>
+
+            <!-- Password -->
+            <TextView
+                android:text="Password"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"/>
+            <EditText
+                android:id="@+id/regPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/edit_text_background"
+                android:hint="Inserisci password"
+                android:inputType="textPassword"
+                android:paddingHorizontal="16dp"
+                android:importantForAutofill="no"/>
+
+            <!-- Nome Cognome -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="8dp">
+                    <TextView
+                        android:text="Nome"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"/>
+                    <EditText
+                        android:id="@+id/regNome"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/edit_text_background"
+                        android:paddingHorizontal="16dp"
+                        android:hint="Mario"
+                        android:importantForAutofill="no"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:text="Cognome"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"/>
+                    <EditText
+                        android:id="@+id/regCognome"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/edit_text_background"
+                        android:paddingHorizontal="16dp"
+                        android:hint="Rossi"
+                        android:importantForAutofill="no"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Età -->
+            <TextView
+                android:text="Età"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/black"/>
+            <EditText
+                android:id="@+id/regEta"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/edit_text_background"
+                android:hint="Es. 25"
+                android:inputType="number"
+                android:paddingHorizontal="16dp"
+                android:importantForAutofill="no"/>
+
+            <!-- Professione -->
+            <TextView
+                android:text="Professione"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"/>
+            <EditText
+                android:id="@+id/regProfessione"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/edit_text_background"
+                android:hint="Es. Studente"
+                android:inputType="text"
+                android:paddingHorizontal="16dp"
+                android:importantForAutofill="no"/>
+
+            <!-- Ore lavoro e sonno -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="8dp">
+                    <TextView
+                        android:text="Ore lavoro/giorno"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"/>
+                    <EditText
+                        android:id="@+id/regOreLavoro"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/edit_text_background"
+                        android:inputType="number"
+                        android:paddingHorizontal="16dp"
+                        android:importantForAutofill="no"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:text="Ore sonno/giorno"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"/>
+                    <EditText
+                        android:id="@+id/regOreSonno"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/edit_text_background"
+                        android:inputType="number"
+                        android:paddingHorizontal="16dp"
+                        android:importantForAutofill="no"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Stile di vita -->
+            <TextView
+                android:text="Stile di vita"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/black"/>
+            <EditText
+                android:id="@+id/regStileVita"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/edit_text_background"
+                android:gravity="top"
+                android:padding="16dp"
+                android:hint="Descrivi le tue abitudini..."
+                android:inputType="textMultiLine"
+                android:importantForAutofill="no"/>
+
+            <!-- Bottone registrati -->
+            <Button
+                android:id="@+id/registerButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Registrati"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/button_login_green"
+                app:cornerRadius="12dp"
+                android:layout_marginBottom="30dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
