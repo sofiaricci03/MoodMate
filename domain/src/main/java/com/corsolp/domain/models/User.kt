@@ -1,11 +1,6 @@
-package com.example.moodmate.model
+package com.corsolp.domain.models
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity(tableName = "user_table")
 data class User(
-    @PrimaryKey
     val email: String,
     val password: String,
     val name: String,

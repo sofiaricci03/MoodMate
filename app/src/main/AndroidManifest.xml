@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name="com.corsolp.moodmate.Moodmate"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,7 +16,7 @@
 
         <!-- Login (main) -->
         <activity
-            android:name=".MainActivity"
+            android:name="com.corsolp.ui.login.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,11 +27,7 @@
         <!-- Pagina di registrazione -->
         <!-- registra la classe kotlin creata-->
         <activity
-            android:name=".RegisterActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".HomeActivity"
+            android:name="com.corsolp.ui.registration.RegisterActivity"
             android:exported="false" />
     </application>
 

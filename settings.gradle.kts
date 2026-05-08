@@ -21,3 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "Moodmate"
 include(":app")
+include(":ui")
+include(":domain")
+include(":data")
