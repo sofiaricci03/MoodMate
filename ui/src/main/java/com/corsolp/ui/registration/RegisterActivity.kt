@@ -7,8 +7,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.corsolp.data.local.db.AppDatabase
-import com.corsolp.data.local.entities.User
+import com.corsolp.domain.di.ServiceLocator
+import com.corsolp.domain.models.User
 import com.corsolp.ui.R
 import com.corsolp.ui.home.HomeActivity
 import kotlinx.coroutines.Dispatchers
@@ -20,8 +20,10 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         //Collega la logica al file grafico activity_register.xml
         setContentView(R.layout.activity_register)
-        //Inizializzazione del DB
-        val db = AppDatabase.getDatabase(this)
+
+        // La UI deve parlare solo con il Domain per rispettare la Clean Architecture
+        val userRepository = ServiceLocator.requireRepositoryProvider().userRepository()
+
         //Recupero del bottone di registrazione
         val registerButton = findViewById<Button>(R.id.registerButton)
 
@@ -59,8 +61,8 @@ class RegisterActivity : AppCompatActivity() {
                         bio = bio
                     )
 
-                    // Inserimento nel DB tramite DAO
-                    db.userDao().insertUser(newUser)
+                    // Inserimento nella repository
+                    userRepository.insertUser(newUser)
                     // Per mostrare messaggi (Toast) o cambiare pagina dobbiamo tornare sul thread Main
                     withContext(Dispatchers.Main) {
                         Toast.makeText(this@RegisterActivity, "Registrazione completata!", Toast.LENGTH_SHORT).show()
