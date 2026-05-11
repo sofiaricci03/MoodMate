@@ -25,9 +25,13 @@
         </activity>
 
         <!-- Pagina di registrazione -->
-        <!-- registra la classe kotlin creata-->
         <activity
             android:name="com.corsolp.ui.registration.RegisterActivity"
+            android:exported="false" />
+
+        <!-- Home page -->
+        <activity
+            android:name="com.corsolp.ui.home.HomeActivity"
             android:exported="false" />
     </application>
 
