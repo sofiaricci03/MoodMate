@@ -69,6 +69,7 @@ class RegisterActivity : AppCompatActivity() {
 
                         //Apertura della HomeActivity
                         val intent = Intent(this@RegisterActivity, HomeActivity::class.java)
+                        intent.putExtra("USER_EMAIL", email)
                         startActivity(intent)
                         finish()
                     }

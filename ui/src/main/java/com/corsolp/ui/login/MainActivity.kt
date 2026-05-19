@@ -77,6 +77,7 @@ class MainActivity : AppCompatActivity() {
 
                             // Navigazione verso la Home
                             val intent = Intent(this@MainActivity, HomeActivity::class.java)
+                            intent.putExtra("USER_EMAIL", emailInserita)  // Passiamo l'email alla Home
                             startActivity(intent)
                             finish() // Chiude la MainActivity così l'utente non torna al login col tasto indietro
 
