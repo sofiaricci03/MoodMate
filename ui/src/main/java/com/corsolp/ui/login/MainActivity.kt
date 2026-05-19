@@ -10,11 +10,12 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.corsolp.domain.di.ServiceLocator
 import com.corsolp.ui.databinding.ActivityMainBinding
-import com.corsolp.ui.home.HomeActivity // Assicurati che questo import sia presente
+import com.corsolp.ui.home.HomeActivity
 import com.corsolp.ui.registration.RegisterActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -26,15 +27,27 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
+
+        // Recupero repository
+        val repositoryProvider = ServiceLocator.requireRepositoryProvider()
+        val userRepository = repositoryProvider.userRepository()
+        val preferencesRepository = repositoryProvider.preferencesRepository()
+
+        // Controlla se l'utente ha già loggato in precedenza
+        val savedEmail = preferencesRepository.getSavedUserEmail()
+        if (savedEmail != null) {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+            return // Ferma l'esecuzione di onCreate, non serve disegnare il Login!
+        }
+
         // Gestione dei margini per le barre di sistema (status bar e navigation bar)
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-// Recupero del Repository tramite il ServiceLocator
-        // Il repository fa da intermediario tra il database (Room) e questa Activity
-        val userRepository = ServiceLocator.requireRepositoryProvider().userRepository()
 
         //gestione del pulsante di login
         binding.loginButton.setOnClickListener {
@@ -53,7 +66,9 @@ class MainActivity : AppCompatActivity() {
                     // Torniamo al thread principale per mostrare il risultato all'utente
                     withContext(Dispatchers.Main) {
                         if (loggedUser != null) {
-                            // Se l'utente esiste (non è null), mostriamo un messaggio di benvenuto
+
+                            // Salva l'email dell'utente loggato
+                            preferencesRepository.saveUserEmail(emailInserita)
                             Toast.makeText(
                                 this@MainActivity,
                                 "Benvenuto ${loggedUser.email}!",
