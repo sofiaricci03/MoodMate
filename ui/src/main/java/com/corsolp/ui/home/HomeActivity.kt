@@ -6,6 +6,7 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.corsolp.ui.R
 import com.corsolp.ui.profile.ProfileActivity
+import com.corsolp.domain.di.ServiceLocator
 
 class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,5 +26,9 @@ class HomeActivity : AppCompatActivity() {
             intent.putExtra("USER_EMAIL", userEmail)
             startActivity(intent)
         }
+
+        // Attivazione workManager notifica
+        val notificationRepo = ServiceLocator.requireRepositoryProvider().notificationRepository()
+        notificationRepo.scheduleDailyMoodReminder()
     }
 }
