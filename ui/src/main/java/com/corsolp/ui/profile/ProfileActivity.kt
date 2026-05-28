@@ -20,13 +20,13 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-        // Recuperiamo l'email passata tramite Intent (fondamentale per cercare l'utente nel DB)
-        val userEmail = intent.getStringExtra("USER_EMAIL") ?: ""
-
         // Otteniamo il repository tramite il ServiceLocator
         val repositoryProvider = ServiceLocator.requireRepositoryProvider()
         val userRepository = repositoryProvider.userRepository()
         val preferencesRepository = repositoryProvider.preferencesRepository()
+
+        // Recupera l'email dalle SharedPreferences
+        val userEmail = preferencesRepository.getSavedUserEmail() ?: ""
 
         //Caricamento dati dal database tramite Coroutine
         lifecycleScope.launch(Dispatchers.IO) {
