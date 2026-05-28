@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.corsolp.ui.R
 import com.corsolp.ui.profile.ProfileActivity
 import com.corsolp.domain.di.ServiceLocator
+import com.google.android.material.floatingactionbutton.FloatingActionButton // IMPORTANTE
 
 class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,13 +17,21 @@ class HomeActivity : AppCompatActivity() {
         // Recuperiamo l'email passata dal Login o dalla Registrazione
         val userEmail = intent.getStringExtra("USER_EMAIL")
 
-        // Troviamo il contenitore del Profilo nella barra di navigazione
+        // 1. GESTIONE PULSANTE CENTRALE (+) PER INSERIRE UMORE
+        val fabAddMood = findViewById<FloatingActionButton>(R.id.fabAddMood)
+        fabAddMood.setOnClickListener {
+            val intent = Intent(this, MoodInputActivity::class.java)
+            // Passiamo l'email anche qui per sapere a quale utente associare l'umore
+            intent.putExtra("USER_EMAIL", userEmail)
+            startActivity(intent)
+        }
+
+        // 2. GESTIONE TAB PROFILO
         val bottomNav = findViewById<LinearLayout>(R.id.bottomNavigation)
         val profileTab = bottomNav.getChildAt(4) // Il 5° elemento (indice 4) è il Profilo
 
         profileTab.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
-            // Passiamo l'email alla pagina Profilo così può caricare i dati
             intent.putExtra("USER_EMAIL", userEmail)
             startActivity(intent)
         }

@@ -263,7 +263,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/user_border_circle"
                     android:gravity="top"
                     android:hint="Descrivi brevemente la tua giornata..."
                     android:padding="15dp"
