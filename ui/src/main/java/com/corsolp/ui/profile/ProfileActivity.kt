@@ -24,7 +24,9 @@ class ProfileActivity : AppCompatActivity() {
         val userEmail = intent.getStringExtra("USER_EMAIL") ?: ""
 
         // Otteniamo il repository tramite il ServiceLocator
-        val userRepository = ServiceLocator.requireRepositoryProvider().userRepository()
+        val repositoryProvider = ServiceLocator.requireRepositoryProvider()
+        val userRepository = repositoryProvider.userRepository()
+        val preferencesRepository = repositoryProvider.preferencesRepository()
 
         //Caricamento dati dal database tramite Coroutine
         lifecycleScope.launch(Dispatchers.IO) {
@@ -53,6 +55,9 @@ class ProfileActivity : AppCompatActivity() {
 
         // Gestione Logout
         findViewById<TextView>(R.id.logoutButton).setOnClickListener {
+            //cancella credenziali salvate
+            preferencesRepository.clearUser()
+
             val intent = Intent(this, MainActivity::class.java)
             // Pulisce lo stack delle attività per impedire di tornare indietro col tasto back
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
