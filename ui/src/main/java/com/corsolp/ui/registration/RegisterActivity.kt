@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.corsolp.domain.di.ServiceLocator
 import com.corsolp.domain.models.User
 import com.corsolp.ui.R
-import com.corsolp.ui.home.HomeActivity
+import com.corsolp.ui.login.MainActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -65,11 +65,13 @@ class RegisterActivity : AppCompatActivity() {
                     userRepository.insertUser(newUser)
                     // Per mostrare messaggi (Toast) o cambiare pagina dobbiamo tornare sul thread Main
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(this@RegisterActivity, "Registrazione completata!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@RegisterActivity, "Registrazione completata! Ora effettua il login.", Toast.LENGTH_SHORT).show()
 
-                        //Apertura della HomeActivity
-                        val intent = Intent(this@RegisterActivity, HomeActivity::class.java)
-                        intent.putExtra("USER_EMAIL", email)
+                        //Ritorno al login
+                        val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+                        // Pulisce lo stack delle attività per impedire di tornare indietro col tasto back
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
                         startActivity(intent)
                         finish()
                     }
