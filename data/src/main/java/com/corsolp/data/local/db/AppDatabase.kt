@@ -5,11 +5,14 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.corsolp.data.local.dao.UserDao
+import com.corsolp.data.local.dao.MoodDao
 import com.corsolp.data.local.entities.User
+import com.corsolp.data.local.entities.Mood // CORRETTO: Deve essere l'entity del modulo DATA
 
-@Database(entities = [User::class], version = 1, exportSchema = false)
+@Database(entities = [User::class, Mood::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
+    abstract fun moodDao(): MoodDao
 
     companion object {
         @Volatile
@@ -21,7 +24,9 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "moodmate_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }

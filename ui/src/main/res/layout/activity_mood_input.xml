@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/button_login_green">
 
-    <!-- Header -->
+    <!-- Header: Titolo e Data Odierna -->
     <LinearLayout
         android:id="@+id/headerMood"
         android:layout_width="match_parent"
@@ -38,12 +38,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:text="6 gennaio"
+                android:text="Caricamento data..."
                 android:textColor="@color/black" />
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Foglio Bianco -->
+    <!-- Foglio Bianco Centrale -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -54,7 +54,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="509dp"
+            android:layout_height="match_parent"
             android:padding="20dp">
 
             <LinearLayout
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Grid Faccine -->
+                <!-- Grid Faccine (Bottoni di selezione) -->
                 <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -72,181 +72,115 @@
 
                     <!-- Felice -->
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardFelice"
                         android:layout_width="0dp"
                         android:layout_height="100dp"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
                         android:layout_margin="8dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/mood_yellow"
                         app:cardCornerRadius="15dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:src="@drawable/felice" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Felice"
-                                android:textColor="@color/black"
-                                android:textStyle="bold" />
+                        <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+                            <ImageView android:layout_width="50dp" android:layout_height="50dp" android:src="@drawable/felice" />
+                            <TextView android:text="Felice" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/black"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
                     <!-- Sereno -->
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardSereno"
                         android:layout_width="0dp"
                         android:layout_height="100dp"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
                         android:layout_margin="8dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/mood_teal"
                         app:cardCornerRadius="15dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:src="@drawable/sereno" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Sereno"
-                                android:textColor="@color/black"
-                                android:textStyle="bold" />
+                        <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+                            <ImageView android:layout_width="50dp" android:layout_height="50dp" android:src="@drawable/sereno" />
+                            <TextView android:text="Sereno" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/black"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
                     <!-- Neutrale -->
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardNeutrale"
                         android:layout_width="0dp"
                         android:layout_height="100dp"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
                         android:layout_margin="8dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/mood_gray"
                         app:cardCornerRadius="15dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:src="@drawable/neutro" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Neutrale"
-                                android:textColor="@color/black"
-                                android:textStyle="bold" />
+                        <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+                            <ImageView android:layout_width="50dp" android:layout_height="50dp" android:src="@drawable/neutro" />
+                            <TextView android:text="Neutrale" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/black"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
                     <!-- Triste -->
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardTriste"
                         android:layout_width="0dp"
                         android:layout_height="100dp"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
                         android:layout_margin="8dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/mood_blue"
                         app:cardCornerRadius="15dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:src="@drawable/triste" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Triste"
-                                android:textColor="@color/black"
-                                android:textStyle="bold" />
+                        <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+                            <ImageView android:layout_width="50dp" android:layout_height="50dp" android:src="@drawable/triste" />
+                            <TextView android:text="Triste" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/black"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
                     <!-- Arrabbiato -->
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardArrabbiato"
                         android:layout_width="0dp"
                         android:layout_height="100dp"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
                         android:layout_margin="8dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/mood_red"
                         app:cardCornerRadius="15dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:src="@drawable/arrabbiato" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Arrabbiato"
-                                android:textColor="@color/black"
-                                android:textStyle="bold" />
+                        <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+                            <ImageView android:layout_width="50dp" android:layout_height="50dp" android:src="@drawable/arrabbiato" />
+                            <TextView android:text="Arrabbiato" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/black"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
                     <!-- Stressato -->
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardStressato"
                         android:layout_width="0dp"
                         android:layout_height="100dp"
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
                         android:layout_margin="8dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/mood_purple"
                         app:cardCornerRadius="15dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:src="@drawable/stressato" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Stressato"
-                                android:textColor="@color/black"
-                                android:textStyle="bold" />
+                        <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+                            <ImageView android:layout_width="50dp" android:layout_height="50dp" android:src="@drawable/stressato" />
+                            <TextView android:text="Stressato" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/black"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </GridLayout>
@@ -260,8 +194,9 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/editMoodNote"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="100dp"
                     android:layout_marginTop="10dp"
                     android:gravity="top"
                     android:hint="Descrivi brevemente la tua giornata..."
@@ -283,8 +218,9 @@
         </ScrollView>
     </androidx.cardview.widget.CardView>
 
-    <!-- Footer -->
+    <!-- Footer: Navigazione Sidebar -->
     <include
+        android:id="@+id/moodFooter"
         layout="@layout/activity_home"
         android:layout_width="match_parent"
         android:layout_height="70dp"
