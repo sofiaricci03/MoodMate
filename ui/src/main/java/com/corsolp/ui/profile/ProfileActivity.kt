@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.corsolp.domain.di.ServiceLocator
 import com.corsolp.ui.R
+import com.corsolp.ui.home.HomeActivity
 import com.corsolp.ui.login.MainActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -63,6 +64,14 @@ class ProfileActivity : AppCompatActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()
+        }
+
+        val bottomNav = findViewById<LinearLayout>(R.id.bottomNavigation)
+        val homeTab = bottomNav.getChildAt(0)
+
+        homeTab.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
         }
     }
 }
