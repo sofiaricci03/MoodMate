@@ -12,35 +12,26 @@
         android:orientation="vertical"
         android:padding="24dp">
 
-        <TextView
-            android:id="@+id/statGreeting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="Buongiorno!"
-            android:textColor="#333333"
-            android:textSize="26sp"
-            android:textStyle="bold" />
-
+        <!-- Tab Settimana / Mese -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:background="@drawable/edit_text_background"
+            android:layout_marginBottom="20dp"
             android:orientation="horizontal"
-            android:padding="4dp">
+            android:weightSum="2">
 
             <TextView
                 android:id="@+id/tabSettimana"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/circle_icon_background"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/tab_active"
                 android:gravity="center"
-                android:padding="10dp"
+                android:padding="12dp"
                 android:text="Settimana"
                 android:textColor="#333333"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -48,17 +39,104 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/tab_inactive"
                 android:gravity="center"
-                android:padding="10dp"
+                android:padding="12dp"
                 android:text="Mese"
-                android:textColor="#888888"
-                android:textSize="16sp" />
+                android:textColor="#333333"
+                android:textSize="15sp" />
+
         </LinearLayout>
 
+        <!-- Card Media Benessere -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="#C8E6C9"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- Riga icona + label -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="6dp">
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/ic_trending_up"
+                        app:tint="#2E7D32" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Media "
+                        android:textColor="#333333"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Benessere"
+                        android:textColor="#333333"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <!-- Punteggio -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/statMediaScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3.1"
+                        android:textColor="#1B1B1B"
+                        android:textSize="38sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/5"
+                        android:textColor="#1B1B1B"
+                        android:textSize="30sp" />
+
+                </LinearLayout>
+
+                <!-- Etichetta qualitativa -->
+                <TextView
+                    android:id="@+id/statMediaText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Discreto"
+                    android:textColor="#333333"
+                    android:textSize="17sp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Card Andamento nel tempo -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="16dp"
             app:cardElevation="2dp">
@@ -66,91 +144,97 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:padding="16dp">
 
+                <!-- Titolo grafico -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Media Benessere"
-                    android:textColor="#888888"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/statMediaScore"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="3.1 / 5"
-                    android:textColor="#333333"
-                    android:textSize="36sp"
+                    android:layout_marginBottom="12dp"
+                    android:text="Andamento nel tempo"
+                    android:textColor="#1B1B1B"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/statMediaText"
-                    android:layout_width="wrap_content"
+                <!-- Corpo grafico: etichette Y + grafico -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Etichette asse Y con emoji -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="220dp"
+                        android:orientation="vertical"
+                        android:paddingEnd="8dp">
+
+                        <LinearLayout android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1" android:gravity="center_vertical" android:orientation="horizontal">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Felice" android:textColor="#666666" android:textSize="11sp" android:layout_marginEnd="4dp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="😄" android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1" android:gravity="center_vertical" android:orientation="horizontal">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sereno" android:textColor="#666666" android:textSize="11sp" android:layout_marginEnd="4dp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="😊" android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1" android:gravity="center_vertical" android:orientation="horizontal">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Neutrale" android:textColor="#666666" android:textSize="11sp" android:layout_marginEnd="4dp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="😐" android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1" android:gravity="center_vertical" android:orientation="horizontal">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Triste" android:textColor="#666666" android:textSize="11sp" android:layout_marginEnd="4dp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="😢" android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1" android:gravity="center_vertical" android:orientation="horizontal">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Stressato" android:textColor="#666666" android:textSize="11sp" android:layout_marginEnd="4dp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="😤" android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1" android:gravity="center_vertical" android:orientation="horizontal">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Arrabbiato" android:textColor="#666666" android:textSize="11sp" android:layout_marginEnd="4dp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="😠" android:textSize="14sp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Grafico (ImageView sostituito da custom view o MPAndroidChart) -->
+                    <ImageView
+                        android:id="@+id/graphImage"
+                        android:layout_width="0dp"
+                        android:layout_height="220dp"
+                        android:layout_weight="1"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/graph" />
+
+                </LinearLayout>
+
+                <!-- Asse X: giorni o date (gestito via codice) -->
+                <LinearLayout
+                    android:id="@+id/xAxisDays"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Discreto"
-                    android:textColor="#4CAF50"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <!-- Spacer allineato alla larghezza delle etichette Y -->
+                    <Space
+                        android:id="@+id/xAxisSpacer"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="0" />
+
+                    <!-- I TextView dell'asse X vengono aggiunti programmaticamente
+                         dal Fragment in base alla modalità Settimana / Mese -->
+
+                </LinearLayout>
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Andamento nel tempo"
-            android:textColor="#333333"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="220dp"
-                android:orientation="vertical"
-                android:paddingEnd="12dp">
-
-                <TextView android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1" android:gravity="center_vertical|end" android:text="Felice" android:textColor="#888888" android:textSize="12sp" />
-                <TextView android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1" android:gravity="center_vertical|end" android:text="Sereno" android:textColor="#888888" android:textSize="12sp" />
-                <TextView android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1" android:gravity="center_vertical|end" android:text="Neutrale" android:textColor="#888888" android:textSize="12sp" />
-                <TextView android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1" android:gravity="center_vertical|end" android:text="Triste" android:textColor="#888888" android:textSize="12sp" />
-                <TextView android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1" android:gravity="center_vertical|end" android:text="Stressato" android:textColor="#888888" android:textSize="12sp" />
-                <TextView android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1" android:gravity="center_vertical|end" android:text="Arrabbiato" android:textColor="#888888" android:textSize="12sp" />
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/graphImage"
-                android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/graph" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/xAxisDays"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="70dp"
-            android:orientation="horizontal">
-
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="L" android:textColor="#333333" android:textSize="14sp" android:textStyle="bold" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="M" android:textColor="#888888" android:textSize="14sp" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="M" android:textColor="#888888" android:textSize="14sp" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="G" android:textColor="#888888" android:textSize="14sp" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="V" android:textColor="#888888" android:textSize="14sp" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="S" android:textColor="#888888" android:textSize="14sp" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:text="D" android:textColor="#888888" android:textSize="14sp" />
-        </LinearLayout>
     </LinearLayout>
 </ScrollView>

@@ -37,7 +37,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         bottomNav.getChildAt(0).setOnClickListener {
-            showStatistics()
+            showHome()
         }
 
         bottomNav.getChildAt(3).setOnClickListener {
@@ -49,7 +49,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         if (savedInstanceState == null) {
-            showStatistics()
+            selectTab(0)
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -69,6 +69,11 @@ class HomeActivity : AppCompatActivity() {
     private fun showProfile() {
         showFragment(ProfileFragment.newInstance(userEmail))
         selectTab(4)
+    }
+
+    private fun showHome(){
+        showFragment(HomeFragment())
+        selectTab(0)
     }
 
     private fun showFragment(fragment: Fragment, addToBackStack: Boolean = false) {
