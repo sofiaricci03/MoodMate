@@ -2,7 +2,6 @@ package com.corsolp.ui.profile
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +10,7 @@ import com.corsolp.domain.di.ServiceLocator
 import com.corsolp.ui.R
 import com.corsolp.ui.home.HomeActivity
 import com.corsolp.ui.login.MainActivity
+import com.corsolp.ui.statistics.StatisticsActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -66,12 +66,21 @@ class ProfileActivity : AppCompatActivity() {
             finish()
         }
 
+        // Barra di navigazione
         val bottomNav = findViewById<LinearLayout>(R.id.bottomNavigation)
-        val homeTab = bottomNav.getChildAt(0)
 
+        val homeTab = bottomNav.getChildAt(0)
         homeTab.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             startActivity(intent)
         }
+
+        val statisticsTab = bottomNav.getChildAt(3)
+        statisticsTab.setOnClickListener {
+            val intent = Intent(this, StatisticsActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }
