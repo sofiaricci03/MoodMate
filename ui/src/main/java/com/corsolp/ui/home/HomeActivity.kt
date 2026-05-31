@@ -3,51 +3,94 @@ package com.corsolp.ui.home
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import android.content.Intent
 import android.os.Bundle
+import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.corsolp.ui.R
-import com.corsolp.ui.profile.ProfileActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.corsolp.domain.di.ServiceLocator
-import com.google.android.material.floatingactionbutton.FloatingActionButton // IMPORTANTE
+import com.corsolp.ui.R
+import com.corsolp.ui.moodInput.MoodInputFragment
+import com.corsolp.ui.profile.ProfileFragment
+import com.corsolp.ui.statistics.StatisticsFragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class HomeActivity : AppCompatActivity() {
+    private var userEmail: String? = null
+    private lateinit var bottomNav: LinearLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        // Recuperiamo l'email passata dal Login o dalla Registrazione
-        val userEmail = intent.getStringExtra("USER_EMAIL")
+        val repositoryProvider = ServiceLocator.requireRepositoryProvider()
+        userEmail = intent.getStringExtra("USER_EMAIL")
+            ?: repositoryProvider.preferencesRepository().getSavedUserEmail()
 
-        // 1. GESTIONE PULSANTE CENTRALE (+) PER INSERIRE UMORE
-        val fabAddMood = findViewById<FloatingActionButton>(R.id.fabAddMood)
-        fabAddMood.setOnClickListener {
-            val intent = Intent(this, MoodInputActivity::class.java)
-            // Passiamo l'email anche qui per sapere a quale utente associare l'umore
-            intent.putExtra("USER_EMAIL", userEmail)
-            startActivity(intent)
+        bottomNav = findViewById(R.id.bottomNavigation)
+
+        findViewById<FloatingActionButton>(R.id.fabAddMood).setOnClickListener {
+            showFragment(MoodInputFragment.newInstance(userEmail), addToBackStack = true)
+            clearSelectedTab()
         }
 
-        // 2. GESTIONE TAB PROFILO
-        val bottomNav = findViewById<LinearLayout>(R.id.bottomNavigation)
-        val profileTab = bottomNav.getChildAt(4) // Il 5° elemento (indice 4) è il Profilo
-
-        profileTab.setOnClickListener {
-            val intent = Intent(this, ProfileActivity::class.java)
-            intent.putExtra("USER_EMAIL", userEmail)
-            startActivity(intent)
+        bottomNav.getChildAt(0).setOnClickListener {
+            showStatistics()
         }
-        // Se non abbiamo il permesso, mostriamo il popup di sistema per chiederlo
+
+        bottomNav.getChildAt(3).setOnClickListener {
+            showStatistics()
+        }
+
+        bottomNav.getChildAt(4).setOnClickListener {
+            showProfile()
+        }
+
+        if (savedInstanceState == null) {
+            showStatistics()
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 101)
             }
         }
-        // Attivazione workManager notifica
-        val notificationRepo = ServiceLocator.requireRepositoryProvider().notificationRepository()
-        notificationRepo.scheduleDailyMoodReminder()
+
+        repositoryProvider.notificationRepository().scheduleDailyMoodReminder()
+    }
+
+    private fun showStatistics() {
+        showFragment(StatisticsFragment())
+        selectTab(3)
+    }
+
+    private fun showProfile() {
+        showFragment(ProfileFragment.newInstance(userEmail))
+        selectTab(4)
+    }
+
+    private fun showFragment(fragment: Fragment, addToBackStack: Boolean = false) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.homeFragmentContainer, fragment)
+            if (addToBackStack) {
+                addToBackStack(fragment::class.java.simpleName)
+            }
+        }.commit()
+    }
+
+    private fun selectTab(index: Int) {
+        clearSelectedTab()
+        bottomNav.getChildAt(index).setBackgroundResource(R.drawable.nav_item_selected)
+    }
+
+    private fun clearSelectedTab() {
+        for (i in 0 until bottomNav.childCount) {
+            val child = bottomNav.getChildAt(i)
+            if (child !is FrameLayout) {
+                child.background = null
+            }
+        }
     }
 }

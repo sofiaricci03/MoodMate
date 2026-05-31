@@ -38,18 +38,6 @@
             android:name="com.corsolp.ui.home.HomeActivity"
             android:exported="false" />
 
-        <!-- Profile page -->
-        <activity
-            android:name="com.corsolp.ui.profile.ProfileActivity"
-            android:exported="false" />
-        <!-- Statistics page -->
-        <activity
-            android:name="com.corsolp.ui.statistics.StatisticsActivity"
-            android:exported="false" />
-        <!-- Mood Input page -->
-        <activity
-            android:name="com.corsolp.ui.home.MoodInputActivity"
-            android:exported="false" />
     </application>
 
 </manifest>
