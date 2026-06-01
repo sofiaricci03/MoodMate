@@ -78,12 +78,12 @@ class StatisticsFragment : Fragment() {
                     // Calcola il peso (altezza della barra)
                     var weight = moodForDay?.let { moodWeights[it.moodType] } ?: 0f
 
-                    // CREIAMO IL CONTENITORE VERTICALE (La colonna del singolo giorno)
+                    // Crea il contenitore verticale per il singolo giorno
                     val barContainer = LinearLayout(requireContext()).apply {
                         layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f)
                         orientation = LinearLayout.VERTICAL
                         weightSum = 6f // L'altezza massima totale è 6 (Felice)
-                        // Aggiustiamo il padding laterale per centrare le barre sopra le lettere
+                        // Aggiusta il padding laterale per centrare le barre sopra le lettere
                         setPadding(18, 0, 18, 0)
                     }
 
