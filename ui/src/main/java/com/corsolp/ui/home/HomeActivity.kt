@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.corsolp.domain.di.ServiceLocator
 import com.corsolp.ui.R
+import com.corsolp.ui.calendar.CalendarFragment
 import com.corsolp.ui.moodInput.MoodInputFragment
 import com.corsolp.ui.profile.ProfileFragment
 import com.corsolp.ui.statistics.StatisticsFragment
@@ -40,6 +41,10 @@ class HomeActivity : AppCompatActivity() {
             showHome()
         }
 
+        bottomNav.getChildAt(1).setOnClickListener {
+            showCalendar()
+        }
+
         bottomNav.getChildAt(3).setOnClickListener {
             showStatistics()
         }
@@ -59,6 +64,11 @@ class HomeActivity : AppCompatActivity() {
         }
 
         repositoryProvider.notificationRepository().scheduleDailyMoodReminder()
+    }
+
+    private fun showCalendar() {
+        showFragment(CalendarFragment.newInstance(userEmail))
+        selectTab(1)
     }
 
     private fun showStatistics() {

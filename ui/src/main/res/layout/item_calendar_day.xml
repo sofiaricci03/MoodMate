@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Layout per la singola cella del calendario (un giorno) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="85dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="2dp">
+
+    <!-- Visualizza il numero del giorno (es. 1, 2, 3...) -->
+    <TextView
+        android:id="@+id/txtDayNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="14sp" />
+
+    <!-- Visualizza l'emoji del mood se presente, altrimenti un cerchio grigio standard -->
+    <!-- scaleType="fitCenter" assicura che l'immagine occupi tutto lo spazio disponibile (42dp) -->
+    <ImageView
+        android:id="@+id/imgMoodEmoji"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="4dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/mood_gray_circle" />
+
+</LinearLayout>
