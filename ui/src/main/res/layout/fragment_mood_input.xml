@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/button_login_green">
 
+    <!-- Header mood input -->
     <LinearLayout
         android:id="@+id/headerMood"
         android:layout_width="match_parent"
@@ -13,6 +14,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/moodInputHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Come ti senti?"
@@ -58,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
+                <!-- Griglia emozioni -->
                 <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -108,7 +110,7 @@
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </GridLayout>
-
+                <!-- Nota opzionale -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -126,7 +128,7 @@
                     android:hint="Descrivi brevemente la tua giornata..."
                     android:padding="15dp"
                     android:textSize="14sp" />
-
+                <!-- Bottone salva -->
                 <Button
                     android:id="@+id/saveMoodButton"
                     android:layout_width="match_parent"
