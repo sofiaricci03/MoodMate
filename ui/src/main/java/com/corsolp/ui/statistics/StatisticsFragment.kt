@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.corsolp.domain.di.ServiceLocator
@@ -69,6 +70,8 @@ class StatisticsFragment : Fragment() {
                 // Svuota il contenitore principale
                 barChartContainer.removeAllViews()
 
+                updateAverageMood(weeklyMoods, requireView())
+
                 // Disegna una barra per ogni giorno della settimana
                 for ((index, day) in currentWeekDays.withIndex()) {
 
@@ -78,12 +81,12 @@ class StatisticsFragment : Fragment() {
                     // Calcola il peso (altezza della barra)
                     var weight = moodForDay?.let { moodWeights[it.moodType] } ?: 0f
 
-                    // CREIAMO IL CONTENITORE VERTICALE (La colonna del singolo giorno)
+                    // Crea il contenitore verticale per il singolo giorno
                     val barContainer = LinearLayout(requireContext()).apply {
                         layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f)
                         orientation = LinearLayout.VERTICAL
                         weightSum = 6f // L'altezza massima totale è 6 (Felice)
-                        // Aggiustiamo il padding laterale per centrare le barre sopra le lettere
+                        // Aggiusta il padding laterale per centrare le barre sopra le lettere
                         setPadding(18, 0, 18, 0)
                     }
 
@@ -108,6 +111,50 @@ class StatisticsFragment : Fragment() {
                     barChartContainer.addView(barContainer)
                 }
             }
+        }
+    }
+
+    private fun updateAverageMood(moods: List<com.corsolp.domain.models.Mood>, view: View) {
+        val statMediaScore = view.findViewById<TextView>(R.id.statMediaScore)
+        val statMediaLabel = view.findViewById<TextView>(R.id.statMediaText)
+
+        // Se non ci sono dati, mostra un trattino
+        if (moods.isEmpty()) {
+            statMediaScore.text = "-/6"
+            statMediaLabel.text = "Nessun dato"
+            return
+        }
+
+        var sommaPunteggi = 0f
+        var giorniValidi = 0
+
+        // Somma solo i giorni in cui l'utente ha inserito un umore
+        for (mood in moods) {
+            val weight = moodWeights[mood.moodType]
+            if (weight != null) {
+                sommaPunteggi += weight
+                giorniValidi++
+            }
+        }
+
+        if (giorniValidi == 0) {
+            statMediaScore.text = "-/6"
+            statMediaLabel.text = "Nessun dato"
+            return
+        }
+
+        val media = sommaPunteggi / giorniValidi
+
+        // Formatta il numero per avere un solo decimale
+        val mediaFormattata = String.format(Locale.getDefault(), "%.1f", media)
+        statMediaScore.text = "$mediaFormattata/6"
+
+        statMediaLabel.text = when {
+            media >= 5.0 -> "Ottimo"
+            media >= 4.0 -> "Buono"
+            media >= 3.0 -> "Discreto"
+            media >= 2.0 -> "Basso"
+            else -> "Critico"
         }
     }
 }
