@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F4F9"
     android:fillViewport="true">
 
     <LinearLayout
@@ -202,14 +201,15 @@
 
                     </LinearLayout>
 
-                    <!-- Grafico (ImageView sostituito da custom view o MPAndroidChart) -->
-                    <ImageView
-                        android:id="@+id/graphImage"
-                        android:layout_width="0dp"
+                    <!-- Grafico -->
+                    <LinearLayout
+                        android:id="@+id/barChartContainer"
+                        android:layout_width="match_parent"
                         android:layout_height="220dp"
-                        android:layout_weight="1"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/graph" />
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:baselineAligned="false"/>
 
                 </LinearLayout>
 
@@ -221,15 +221,43 @@
                     android:layout_marginTop="4dp"
                     android:orientation="horizontal">
 
-                    <!-- Spacer allineato alla larghezza delle etichette Y -->
-                    <Space
-                        android:id="@+id/xAxisSpacer"
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="0" />
 
-                    <!-- I TextView dell'asse X vengono aggiunti programmaticamente
-                         dal Fragment in base alla modalità Settimana / Mese -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lu"
+                        android:layout_marginEnd="19dp"
+                        android:layout_marginStart="90dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ma"
+                        android:layout_marginEnd="19dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Me"
+                        android:layout_marginEnd="19dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gi"
+                        android:layout_marginEnd="19dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ve"
+                        android:layout_marginEnd="19dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sa"
+                        android:layout_marginEnd="19dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Do" />
+
 
                 </LinearLayout>
 
