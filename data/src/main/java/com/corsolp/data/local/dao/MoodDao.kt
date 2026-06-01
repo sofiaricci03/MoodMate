@@ -13,4 +13,10 @@ interface MoodDao {
 
     @Query("SELECT * FROM mood_table WHERE userEmail = :email AND date LIKE :yearMonth || '%'")
     suspend fun getMoodsByMonth(email: String, yearMonth: String): List<Mood>
+
+    @Query("SELECT * FROM mood_table WHERE userEmail = :email AND date >= :startDate AND date <= :endDate ORDER BY date ASC")
+    suspend fun getMoodsByDateRange(email: String, startDate: String, endDate: String): List<Mood>
+
+    @Query("SELECT * FROM mood_table WHERE userEmail = :email AND date = :date LIMIT 1")
+    suspend fun getMoodByDate(email: String, date: String): Mood?
 }

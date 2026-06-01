@@ -37,13 +37,38 @@ class MoodRepositoryImpl(private val moodDao: MoodDao) : MoodRepository {
         val entities = moodDao.getMoodsByMonth(email, yearMonth)
 
         // Trasformiamo ogni riga (Entity) del DB in un modello (Domain) per la UI
-        // Questo mapping assicura che il modulo UI non dipenda direttamente dalle tabelle del database.
         return entities.map { entity ->
             DomainMood(
                 userEmail = entity.userEmail,
                 date = entity.date,
                 moodType = entity.moodType,
                 note = entity.note
+            )
+        }
+    }
+
+    override suspend fun getMoodsByDateRange(email: String, startDate: String, endDate: String): List<DomainMood> {
+        val entities = moodDao.getMoodsByDateRange(email, startDate, endDate)
+        // Mappiamo l'entità del database nel modello del domain usando l'alias DomainMood
+        return entities.map { entity ->
+            DomainMood(
+                userEmail = entity.userEmail,
+                date = entity.date,
+                moodType = entity.moodType,
+                note = entity.note
+            )
+        }
+    }
+
+    override suspend fun getMoodByDate(email: String, date: String): DomainMood? {
+        val entity = moodDao.getMoodByDate(email, date)
+
+        return entity?.let {
+            DomainMood(
+                userEmail = it.userEmail,
+                date = it.date,
+                moodType = it.moodType,
+                note = it.note
             )
         }
     }
