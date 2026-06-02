@@ -48,13 +48,18 @@
             android:elevation="8dp"
             android:gravity="center"
             android:baselineAligned="false"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingHorizontal="4dp">
 
             <!-- Home -->
             <LinearLayout
+                android:id="@+id/nav_home"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="6dp"
+                android:padding="8dp"
                 android:gravity="center"
                 android:orientation="vertical">
                 <ImageView
@@ -75,6 +80,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="6dp"
+                android:padding="8dp"
                 android:gravity="center"
                 android:orientation="vertical">
                 <ImageView
@@ -92,7 +100,7 @@
             <!-- Bottone Centrale Aggiungi (+) -->
             <FrameLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1">
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fabAddMood"
@@ -110,9 +118,13 @@
 
             <!-- Statistiche -->
             <LinearLayout
+                android:id="@+id/nav_statistiche"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="6dp"
+                android:padding="8dp"
                 android:gravity="center"
                 android:orientation="vertical">
                 <ImageView
@@ -134,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="8dp"
+                android:layout_margin="6dp"
                 android:padding="8dp"
                 android:gravity="center"
                 android:orientation="vertical">
