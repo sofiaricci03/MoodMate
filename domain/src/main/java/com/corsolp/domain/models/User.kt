@@ -9,5 +9,6 @@ data class User(
     val job: String,
     val workHours: Float,
     val sleepHours: Float,
-    val bio: String
+    val bio: String,
+    val profileImageUri: String? = null
 )

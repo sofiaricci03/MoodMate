@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.corsolp.data.local.dao.UserDao
 import com.corsolp.data.local.dao.MoodDao
 import com.corsolp.data.local.entities.User
-import com.corsolp.data.local.entities.Mood // CORRETTO: Deve essere l'entity del modulo DATA
+import com.corsolp.data.local.entities.Mood
 
 @Database(entities = [User::class, Mood::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
@@ -25,7 +25,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "moodmate_database"
                 )
-                    .fallbackToDestructiveMigration()
+                    .fallbackToDestructiveMigration(true)
                     .build()
                 INSTANCE = instance
                 instance
