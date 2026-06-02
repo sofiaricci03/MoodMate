@@ -29,17 +29,15 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Listener per il pulsante Modifica Profilo
+        // Tasto Modifica
         view.findViewById<Button>(R.id.editProfileButton).setOnClickListener {
-            val intent = Intent(requireContext(), EditProfileActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(requireContext(), EditProfileActivity::class.java))
         }
 
-        // Listener per il Logout
+        // Tasto Logout
         view.findViewById<TextView>(R.id.logoutButton).setOnClickListener {
-            val preferencesRepository = ServiceLocator.requireRepositoryProvider().preferencesRepository()
-            preferencesRepository.clearUser()
-
+            val pref = ServiceLocator.requireRepositoryProvider().preferencesRepository()
+            pref.clearUser()
             val intent = Intent(requireContext(), MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
@@ -49,17 +47,18 @@ class ProfileFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        // Ricarica i dati ogni volta che torni sul profilo
         caricaDatiUtente()
     }
 
     private fun caricaDatiUtente() {
-        val repositoryProvider = ServiceLocator.requireRepositoryProvider()
-        val userRepository = repositoryProvider.userRepository()
-        val preferencesRepository = repositoryProvider.preferencesRepository()
+        val repoProvider = ServiceLocator.requireRepositoryProvider()
+        val userRepository = repoProvider.userRepository()
 
-        val userEmail = arguments?.getString(ARG_USER_EMAIL)
-            ?: preferencesRepository.getSavedUserEmail()
-            ?: ""
+        // Recupera l'email dalle preferenze
+        val userEmail = repoProvider.preferencesRepository().getSavedUserEmail() ?: ""
+
+        if (userEmail.isEmpty()) return
 
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
             val user = userRepository.getUserByEmail(userEmail)
@@ -68,23 +67,25 @@ class ProfileFragment : Fragment() {
                 if (isAdded && user != null) {
                     val root = view ?: return@withContext
 
+                    // Popolamento testi
                     root.findViewById<TextView>(R.id.profileName).text = user.name
                     root.findViewById<TextView>(R.id.profileJobHeader).text = user.job
                     root.findViewById<TextView>(R.id.profileAge).text = user.age.toString()
                     root.findViewById<TextView>(R.id.profileJob).text = user.job
-                    root.findViewById<TextView>(R.id.profileWorkHours).text = user.workHours.toString()
-                    root.findViewById<TextView>(R.id.profileSleepHours).text = user.sleepHours.toString()
+                    root.findViewById<TextView>(R.id.profileWorkHours).text = "${user.workHours} h"
+                    root.findViewById<TextView>(R.id.profileSleepHours).text = "${user.sleepHours} h"
                     root.findViewById<TextView>(R.id.profileBio).text = user.bio
 
-                    val profileImage = root.findViewById<ImageView>(R.id.profileImage)
+                    // Caricamento immagine
+                    val profileImg = root.findViewById<ImageView>(R.id.profileImage)
                     if (!user.profileImageUri.isNullOrEmpty()) {
                         try {
-                            profileImage.setImageURI(Uri.parse(user.profileImageUri))
+                            profileImg.setImageURI(Uri.parse(user.profileImageUri))
                         } catch (e: Exception) {
-                            profileImage.setImageResource(R.drawable.user)
+                            profileImg.setImageResource(R.drawable.user)
                         }
                     } else {
-                        profileImage.setImageResource(R.drawable.user)
+                        profileImg.setImageResource(R.drawable.user)
                     }
                 }
             }
@@ -93,11 +94,8 @@ class ProfileFragment : Fragment() {
 
     companion object {
         private const val ARG_USER_EMAIL = "USER_EMAIL"
-
         fun newInstance(userEmail: String?) = ProfileFragment().apply {
-            arguments = Bundle().apply {
-                putString(ARG_USER_EMAIL, userEmail)
-            }
+            arguments = Bundle().apply { putString(ARG_USER_EMAIL, userEmail) }
         }
     }
 }

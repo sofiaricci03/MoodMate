@@ -21,6 +21,7 @@ class UserRepositoryImpl(
     }
 }
 
+// AGGIORNATO: Ora include profileImageUri
 private fun com.corsolp.data.local.entities.User.toDomain(): User {
     return User(
         email = email,
@@ -31,10 +32,12 @@ private fun com.corsolp.data.local.entities.User.toDomain(): User {
         job = job,
         workHours = workHours,
         sleepHours = sleepHours,
-        bio = bio
+        bio = bio,
+        profileImageUri = profileImageUri
     )
 }
 
+// AGGIORNATO: Ora include profileImageUri
 private fun User.toEntity(): com.corsolp.data.local.entities.User {
     return com.corsolp.data.local.entities.User(
         email = email,
@@ -45,6 +48,7 @@ private fun User.toEntity(): com.corsolp.data.local.entities.User {
         job = job,
         workHours = workHours,
         sleepHours = sleepHours,
-        bio = bio
+        bio = bio,
+        profileImageUri = profileImageUri
     )
 }
