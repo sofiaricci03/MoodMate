@@ -9,7 +9,7 @@ import com.corsolp.data.local.dao.MoodDao
 import com.corsolp.data.local.entities.User
 import com.corsolp.data.local.entities.Mood
 
-@Database(entities = [User::class, Mood::class], version = 2, exportSchema = false)
+@Database(entities = [User::class, Mood::class], version = 3, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun moodDao(): MoodDao

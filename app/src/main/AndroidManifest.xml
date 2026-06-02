@@ -38,6 +38,10 @@
         <activity
             android:name="com.corsolp.ui.home.HomeActivity"
             android:exported="false" />
+        <!-- Edit profile -->
+        <activity
+            android:name="com.corsolp.ui.profile.EditProfileActivity"
+            android:exported="false" />
 
     </application>
 
