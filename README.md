@@ -5,6 +5,9 @@ L’obiettivo del progetto è la realizzazione di un’applicazione mobile svilu
 
 ---
 ## Struttura del Progetto
+Prima dello sviluppo dell'applicazione, è stato implementato un mockup in figma 
+https://www.figma.com/design/0G1lLEznQgFjJybXxowbYl/Android-Mockup--Community-?node-id=1-126&t=u2IQWHWFHLeNNg4h-1
+
 L'applicazione è suddivisa in 4 moduli indipendenti:
 - app: modulo Applicazione (Entry Point)
 - ui: modulo Presentazione (UI Layer)
