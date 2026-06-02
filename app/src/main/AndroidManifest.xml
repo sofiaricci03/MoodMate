@@ -5,6 +5,7 @@
     <!-- Permessi dell'applicazione-->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name="com.corsolp.moodmate.Moodmate"

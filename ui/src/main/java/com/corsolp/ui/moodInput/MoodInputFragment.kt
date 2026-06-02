@@ -54,7 +54,15 @@ class MoodInputFragment : Fragment() {
         setupMoodButton(view, R.id.cardArrabbiato, "Arrabbiato")
         setupMoodButton(view, R.id.cardStressato, "Stressato")
 
-        view.findViewById<Button>(R.id.saveMoodButton).setOnClickListener {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            val existingMood = moodRepository.getMoodByDate(userEmail, dateForDb)
+            withContext(Dispatchers.Main) {
+                existingMood?.let { showExistingMood(view, it) }
+            }
+        }
+
+        val saveBtn = view.findViewById<Button>(R.id.saveMoodButton)
+        saveBtn.setOnClickListener {
             val note = view.findViewById<EditText>(R.id.editMoodNote).text.toString()
             val mood = selectedMood
 
@@ -63,7 +71,18 @@ class MoodInputFragment : Fragment() {
                 return@setOnClickListener
             }
 
+            saveBtn.isEnabled = false
+
             viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+                val existingMood = moodRepository.getMoodByDate(userEmail, dateForDb)
+
+                if (existingMood != null) {
+                    withContext(Dispatchers.Main) {
+                        showExistingMood(view, existingMood)
+                    }
+                    return@launch
+                }
+
                 val newMood = Mood(
                     userEmail = userEmail,
                     date = dateForDb,
@@ -73,26 +92,9 @@ class MoodInputFragment : Fragment() {
 
                 moodRepository.insertMood(newMood)
 
-                // Controlla se il mood è già stato inserito per oggi e in caso blocca
-                // il pulsante di salvataggio e mostra il mood esistente e nota
-
-                val existingMood = moodRepository.getMoodByDate(userEmail, dateForDb)
                 withContext(Dispatchers.Main) {
-                    if (existingMood != null) {
-
-                        val saveBtn = view.findViewById<Button>(R.id.saveMoodButton)
-                        val noteEdit = view.findViewById<EditText>(R.id.editMoodNote)
-
-                        saveBtn.isEnabled = false
-                        saveBtn.text = "Umore già inserito oggi"
-
-                        noteEdit.isEnabled = false
-                        noteEdit.setText(existingMood.note)
-
-                        Toast.makeText(requireContext(), "Oggi sei: ${existingMood.moodType}", Toast.LENGTH_LONG).show()
-
-                        view.findViewById<TextView>(R.id.moodInputHeader).text = "Mood già inserito oggi: ${existingMood.moodType}"
-                    }
+                    showExistingMood(view, newMood)
+                    Toast.makeText(requireContext(), "Mood salvato!", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -103,6 +105,20 @@ class MoodInputFragment : Fragment() {
             selectedMood = moodName
             Toast.makeText(requireContext(), "Hai selezionato: $moodName", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun showExistingMood(view: View, mood: Mood) {
+        val saveBtn = view.findViewById<Button>(R.id.saveMoodButton)
+        val noteEdit = view.findViewById<EditText>(R.id.editMoodNote)
+
+        saveBtn.isEnabled = false
+        saveBtn.text = "Umore gia' inserito oggi"
+
+        noteEdit.isEnabled = false
+        noteEdit.setText(mood.note)
+
+        view.findViewById<TextView>(R.id.moodInputHeader).text =
+            "Mood gia' inserito oggi: ${mood.moodType}"
     }
 
     companion object {
