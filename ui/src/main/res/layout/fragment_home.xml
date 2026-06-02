@@ -48,7 +48,7 @@
                     android:id="@+id/weatherTemp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bologna 3°C"
+                    android:text="Bologna --°C"
                     android:textColor="#1976D2"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -58,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Parzialmente Nuvoloso"
+                    android:text="Caricamento meteo..."
                     android:textColor="#1976D2"
                     android:textSize="14sp" />
 
@@ -66,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="MAX: 3° MIN: -1°"
+                    android:text="Dati forniti da Open-Meteo"
                     android:textColor="#1565C0"
                     android:textSize="14sp"
                     android:textStyle="bold" />

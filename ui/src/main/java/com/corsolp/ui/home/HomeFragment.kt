@@ -19,7 +19,8 @@ import java.util.Locale
 class HomeFragment : Fragment() {
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
@@ -31,36 +32,59 @@ class HomeFragment : Fragment() {
         val repositoryProvider = ServiceLocator.requireRepositoryProvider()
         val userRepository = repositoryProvider.userRepository()
         val moodRepository = repositoryProvider.moodRepository()
+        val weatherRepository = repositoryProvider.weatherRepository()
         val userEmail = repositoryProvider.preferencesRepository().getSavedUserEmail() ?: ""
 
         val greetingText = view.findViewById<TextView>(R.id.homeGreeting)
         val dateText = view.findViewById<TextView>(R.id.homeDate)
         val moodStatusText = view.findViewById<TextView>(R.id.homeMoodStatus)
+        val weatherTempText = view.findViewById<TextView>(R.id.weatherTemp)
+        val weatherDescText = view.findViewById<TextView>(R.id.weatherDesc)
 
-        // Imposta la data odierna
         val dateFormat = SimpleDateFormat("d MMMM", Locale.ITALIAN)
         dateText.text = dateFormat.format(Date())
 
         lifecycleScope.launch(Dispatchers.IO) {
-
             val user = userRepository.getUserByEmail(userEmail)
-
-            // Controlla se l'utente ha già inserito l'umore OGGI
             val todayDbFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
             val todayMood = moodRepository.getMoodByDate(userEmail, todayDbFormat)
+            val weather = weatherRepository.getCurrentWeather(44.49, 11.34)
 
             withContext(Dispatchers.Main) {
-                // Saluto personalizzato
-                user?.let {
-                    greetingText.text = "Buongiorno, ${it.name}!"
+                user?.let { greetingText.text = "Buongiorno, ${it.name}!" }
+
+                moodStatusText.text = if (todayMood != null) {
+                    "Oggi ti senti ${todayMood.moodType.lowercase()}"
+                } else {
+                    "Come ti senti oggi?"
                 }
 
-                if (todayMood != null) {
-                    moodStatusText.text = "Oggi ti senti ${todayMood.moodType.lowercase()}"
+                if (weather != null) {
+                    weatherTempText.text = "Bologna ${weather.temperature.toInt()}°C"
+                    weatherDescText.text = translateWeatherCode(weather.weatherCode)
                 } else {
-                    moodStatusText.text = "Come ti senti oggi? Ricorda di inserire il tuo mood"
+                    weatherTempText.text = "Bologna --°C"
+                    weatherDescText.text = "Meteo non disponibile"
                 }
             }
+        }
+    }
+
+    private fun translateWeatherCode(code: Int): String {
+        return when (code) {
+            0 -> "Sereno"
+            1, 2, 3 -> "Parzialmente nuvoloso"
+            45, 48 -> "Nebbia"
+            51, 53, 55 -> "Pioggia lieve"
+            56, 57 -> "Pioggia gelata"
+            61, 63, 65 -> "Pioggia"
+            66, 67 -> "Pioggia gelata"
+            71, 73, 75 -> "Neve"
+            77 -> "Nevischio"
+            80, 81, 82 -> "Rovesci"
+            85, 86 -> "Rovesci di neve"
+            95, 96, 99 -> "Temporale"
+            else -> "Variabile"
         }
     }
 }

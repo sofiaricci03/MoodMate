@@ -15,5 +15,5 @@ data class CurrentWeather(
     val temperature: Double,
 
     @Json(name = "weathercode")
-    val weathercode: Int
+    val weatherCode: Int
 )

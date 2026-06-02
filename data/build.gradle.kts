@@ -39,8 +39,10 @@ dependencies {
     implementation(project(":domain"))
 
     implementation(libs.retrofit)
-    implementation("com.squareup.retrofit2:converter-moshi:3.0.0")
-    implementation("com.squareup.moshi:moshi-kotlin:1.15.2")
+    implementation(libs.retrofit.converter.moshi)
+    implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
+    ksp(libs.moshi.codegen)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
