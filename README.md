@@ -5,6 +5,9 @@ L’obiettivo del progetto è la realizzazione di un’applicazione mobile svilu
 
 ---
 ## Struttura del Progetto
+Prima dello sviluppo dell'applicazione, è stato implementato un mockup in figma 
+https://www.figma.com/design/0G1lLEznQgFjJybXxowbYl/Android-Mockup--Community-?node-id=1-126&t=u2IQWHWFHLeNNg4h-1
+
 L'applicazione è suddivisa in 4 moduli indipendenti:
 - app: modulo Applicazione (Entry Point)
 - ui: modulo Presentazione (UI Layer)
@@ -19,7 +22,7 @@ Contiene le entry point dell'applicazione. AndroidManifest.xml: Definisce 3 Acti
 Moodmate.kt è la Classe Application che inizializza il Service Locator per l'iniezione delle dipendenze
 
 ### 2. Modulo Domain
-Rachhiude la logic a di buisness e non ha dipendenze da Android SDK. Contiene solo interfacce repository e modelli di dominio e la sua struttura si suddivide in:
+Racchiude la logica di business e non ha dipendenze da Android SDK. Contiene solo interfacce repository e modelli di dominio e la sua struttura si suddivide in:
 domain/src/main/java/com/corsolp/domain/
 - di: Service Locator e Dependency Injection
 - models: data classes di dominio
