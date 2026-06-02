@@ -19,7 +19,7 @@ Contiene le entry point dell'applicazione. AndroidManifest.xml: Definisce 3 Acti
 Moodmate.kt è la Classe Application che inizializza il Service Locator per l'iniezione delle dipendenze
 
 ### 2. Modulo Domain
-Rachhiude la logic a di buisness e non ha dipendenze da Android SDK. Contiene solo interfacce repository e modelli di dominio e la sua struttura si suddivide in:
+Racchiude la logica di business e non ha dipendenze da Android SDK. Contiene solo interfacce repository e modelli di dominio e la sua struttura si suddivide in:
 domain/src/main/java/com/corsolp/domain/
 - di: Service Locator e Dependency Injection
 - models: data classes di dominio
