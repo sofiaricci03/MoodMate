@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="button_login_green">#A5DBB5</color>
     <color name="register_text_green">#5F9D88</color>
+    <color name="register_background">#F8F9FA</color>
 
     <color name="background_gray">#D3D3D3</color>
     <color name="text_gray">#808080</color>
@@ -25,5 +26,18 @@
     <color name="mood_red">#FFEBEE</color>
     <color name="mood_purple">#F3E5F5</color>
 
+    <color name="red_week_day">#D32F2F</color>
 
+    <color name="dark_gray_text">#333333</color>
+    <color name="medium_gray_text">#888888</color>
+    <color name="primary_blue">#1976D2</color>
+    <color name="darker_blue">#1565C0</color>
+    <color name="accent_yellow">#FBC02D</color>
+    <color name="gray_text_55">#555555</color>
+    <color name="accent_red">#E53935</color>
+    <color name="divider_gray">#DDDDDD</color>
+    <color name="nearly_black">#1B1B1B</color>
+    <color name="gray_text_66">#666666</color>
+    <color name="stats_card_green">#C8E6C9</color>
+    <color name="dark_green_accent">#2E7D32</color>
 </resources>

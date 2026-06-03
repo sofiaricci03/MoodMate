@@ -15,7 +15,7 @@
             android:id="@+id/moodInputHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Come ti senti?"
+            android:text="@string/how_feeling_header"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:text="Oggi"
+                android:text="@string/today"
                 android:textColor="@color/black"
                 android:textSize="13sp" />
         </LinearLayout>
@@ -69,7 +69,7 @@
                     <androidx.cardview.widget.CardView android:id="@+id/cardFelice" android:layout_width="0dp" android:layout_height="100dp" android:layout_rowWeight="1" android:layout_columnWeight="1" android:layout_margin="8dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" app:cardBackgroundColor="@color/mood_yellow" app:cardCornerRadius="15dp">
                         <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical">
                             <ImageView android:layout_width="50dp" android:layout_height="50dp" android:src="@drawable/felice" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Felice" android:textColor="@color/black" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/mood_happy" android:textColor="@color/black" android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -77,7 +77,7 @@
                     <androidx.cardview.widget.CardView android:id="@+id/cardSereno" android:layout_width="0dp" android:layout_height="100dp" android:layout_rowWeight="1" android:layout_columnWeight="1" android:layout_margin="8dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" app:cardBackgroundColor="@color/mood_teal" app:cardCornerRadius="15dp">
                         <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical">
                             <ImageView android:layout_width="50dp" android:layout_height="50dp" android:src="@drawable/sereno" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sereno" android:textColor="@color/black" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/mood_serene" android:textColor="@color/black" android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -85,7 +85,7 @@
                     <androidx.cardview.widget.CardView android:id="@+id/cardNeutrale" android:layout_width="0dp" android:layout_height="100dp" android:layout_rowWeight="1" android:layout_columnWeight="1" android:layout_margin="8dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" app:cardBackgroundColor="@color/mood_gray" app:cardCornerRadius="15dp">
                         <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical">
                             <ImageView android:layout_width="50dp" android:layout_height="50dp" android:src="@drawable/neutro" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Neutrale" android:textColor="@color/black" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/mood_neutral" android:textColor="@color/black" android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -93,7 +93,7 @@
                     <androidx.cardview.widget.CardView android:id="@+id/cardTriste" android:layout_width="0dp" android:layout_height="100dp" android:layout_rowWeight="1" android:layout_columnWeight="1" android:layout_margin="8dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" app:cardBackgroundColor="@color/mood_blue" app:cardCornerRadius="15dp">
                         <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical">
                             <ImageView android:layout_width="50dp" android:layout_height="50dp" android:src="@drawable/triste" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Triste" android:textColor="@color/black" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/mood_sad" android:textColor="@color/black" android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -101,7 +101,7 @@
                     <androidx.cardview.widget.CardView android:id="@+id/cardArrabbiato" android:layout_width="0dp" android:layout_height="100dp" android:layout_rowWeight="1" android:layout_columnWeight="1" android:layout_margin="8dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" app:cardBackgroundColor="@color/mood_red" app:cardCornerRadius="15dp">
                         <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical">
                             <ImageView android:layout_width="50dp" android:layout_height="50dp" android:src="@drawable/arrabbiato" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Arrabbiato" android:textColor="@color/black" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/mood_angry" android:textColor="@color/black" android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -109,7 +109,7 @@
                     <androidx.cardview.widget.CardView android:id="@+id/cardStressato" android:layout_width="0dp" android:layout_height="100dp" android:layout_rowWeight="1" android:layout_columnWeight="1" android:layout_margin="8dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" app:cardBackgroundColor="@color/mood_purple" app:cardCornerRadius="15dp">
                         <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical">
                             <ImageView android:layout_width="50dp" android:layout_height="50dp" android:src="@drawable/stressato" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Stressato" android:textColor="@color/black" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/mood_stressed" android:textColor="@color/black" android:textStyle="bold" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </GridLayout>
@@ -118,7 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Note della giornata"
+                    android:text="@string/daily_notes_label"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 
@@ -129,7 +129,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/edit_text_background"
                     android:gravity="top"
-                    android:hint="Raccontaci qualcosa..."
+                    android:hint="@string/notes_placeholder"
                     android:padding="15dp"
                     android:textSize="14sp" />
                 <!-- Bottone salva -->
@@ -140,7 +140,7 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="20dp"
                     android:backgroundTint="@color/button_login_green"
-                    android:text="Salva Mood"
+                    android:text="@string/save_mood_button"
                     android:textColor="@color/black"
                     app:cornerRadius="15dp" />
             </LinearLayout>

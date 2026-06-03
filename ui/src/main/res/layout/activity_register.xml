@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="#F8F9FA">
+    android:background="@color/register_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MoodMate"
+                android:text="@string/app_name"
                 android:textColor="@color/black"
                 android:textSize="36sp"
                 android:textStyle="bold" />
@@ -35,7 +35,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Registrati per migliorare\nla tua giornata!"
+                android:text="@string/register_title"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="22sp"
@@ -44,7 +44,7 @@
 
             <!-- Email -->
             <TextView
-                android:text="Email"
+                android:text="@string/email_hint"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -55,14 +55,14 @@
                 android:layout_height="50dp"
                 android:layout_marginBottom="12dp"
                 android:background="@drawable/edit_text_background"
-                android:hint="Inserisci email"
+                android:hint="@string/email_placeholder"
                 android:inputType="textEmailAddress"
                 android:paddingHorizontal="16dp"
                 android:importantForAutofill="no"/>
 
             <!-- Password -->
             <TextView
-                android:text="Password"
+                android:text="@string/password_hint"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
                 android:layout_height="50dp"
                 android:layout_marginBottom="12dp"
                 android:background="@drawable/edit_text_background"
-                android:hint="Inserisci password"
+                android:hint="@string/password_placeholder"
                 android:inputType="textPassword"
                 android:paddingHorizontal="16dp"
                 android:importantForAutofill="no"/>
@@ -91,7 +91,7 @@
                     android:orientation="vertical"
                     android:layout_marginEnd="8dp">
                     <TextView
-                        android:text="Nome"
+                        android:text="@string/profile_name_label"
                         android:textStyle="bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
                         android:layout_height="50dp"
                         android:background="@drawable/edit_text_background"
                         android:paddingHorizontal="16dp"
-                        android:hint="Mario"
+                        android:hint="@string/name_placeholder"
                         android:importantForAutofill="no"/>
                 </LinearLayout>
 
@@ -112,7 +112,7 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
                     <TextView
-                        android:text="Cognome"
+                        android:text="@string/surname_label"
                         android:textStyle="bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -123,14 +123,14 @@
                         android:layout_height="50dp"
                         android:background="@drawable/edit_text_background"
                         android:paddingHorizontal="16dp"
-                        android:hint="Rossi"
+                        android:hint="@string/surname_placeholder"
                         android:importantForAutofill="no"/>
                 </LinearLayout>
             </LinearLayout>
 
             <!-- Età -->
             <TextView
-                android:text="Età"
+                android:text="@string/profile_age_label"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -142,14 +142,14 @@
                 android:layout_height="50dp"
                 android:layout_marginBottom="12dp"
                 android:background="@drawable/edit_text_background"
-                android:hint="Es. 25"
+                android:hint="@string/age_placeholder"
                 android:inputType="number"
                 android:paddingHorizontal="16dp"
                 android:importantForAutofill="no"/>
 
             <!-- Professione -->
             <TextView
-                android:text="Professione"
+                android:text="@string/profession_label"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -160,7 +160,7 @@
                 android:layout_height="50dp"
                 android:layout_marginBottom="12dp"
                 android:background="@drawable/edit_text_background"
-                android:hint="Es. Studente"
+                android:hint="@string/profession_placeholder"
                 android:inputType="text"
                 android:paddingHorizontal="16dp"
                 android:importantForAutofill="no"/>
@@ -178,7 +178,7 @@
                     android:orientation="vertical"
                     android:layout_marginEnd="8dp">
                     <TextView
-                        android:text="Ore lavoro/giorno"
+                        android:text="@string/profile_work_hours_label"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:layout_width="wrap_content"
@@ -200,7 +200,7 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
                     <TextView
-                        android:text="Ore sonno/giorno"
+                        android:text="@string/profile_sleep_hours_label"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:layout_width="wrap_content"
@@ -219,7 +219,7 @@
 
             <!-- Stile di vita -->
             <TextView
-                android:text="Stile di vita"
+                android:text="@string/lifestyle_label"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -233,7 +233,7 @@
                 android:background="@drawable/edit_text_background"
                 android:gravity="top"
                 android:padding="16dp"
-                android:hint="Descrivi le tue abitudini..."
+                android:hint="@string/habits_placeholder"
                 android:inputType="textMultiLine"
                 android:importantForAutofill="no"/>
 
@@ -242,7 +242,7 @@
                 android:id="@+id/registerButton"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="Registrati"
+                android:text="@string/register_button"
                 android:textColor="@color/black"
                 android:backgroundTint="@color/button_login_green"
                 app:cornerRadius="12dp"

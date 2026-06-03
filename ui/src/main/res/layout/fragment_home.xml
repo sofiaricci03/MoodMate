@@ -15,7 +15,7 @@
             android:id="@+id/homeGreeting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#333333"
+            android:textColor="@color/dark_gray_text"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -25,8 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="24dp"
-            android:text="Oggi"
-            android:textColor="#888888"
+            android:text="@string/today"
+            android:textColor="@color/medium_gray_text"
             android:textSize="16sp" />
 
         <androidx.cardview.widget.CardView
@@ -39,7 +39,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#E3F2FD"
+                android:background="@color/mood_blue"
                 android:orientation="vertical"
                 android:padding="20dp">
 
@@ -47,8 +47,8 @@
                     android:id="@+id/weatherTemp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Internet "
-                    android:textColor="#1976D2"
+                    android:text="@string/weather_internet"
+                    android:textColor="@color/primary_blue"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -57,16 +57,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Caricamento meteo..."
-                    android:textColor="#1976D2"
+                    android:text="@string/weather_loading"
+                    android:textColor="@color/primary_blue"
                     android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Dati forniti da Open-Meteo"
-                    android:textColor="#1565C0"
+                    android:text="@string/weather_provider"
+                    android:textColor="@color/darker_blue"
                     android:textSize="14sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -78,8 +78,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:gravity="center"
-            android:text="Come ti senti oggi?"
-            android:textColor="#333333"
+            android:text="@string/how_do_you_feel"
+            android:textColor="@color/dark_gray_text"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -111,8 +111,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:text="Frase Motivazionale"
-                        android:textColor="#FBC02D"
+                        android:text="@string/motivational_quote_title"
+                        android:textColor="@color/accent_yellow"
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -122,8 +122,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text='"Concediti il tempo di cui hai bisogno. Non c&apos;è fretta."'
-                    android:textColor="#555555"
+                    android:text="@string/home_quote_sample"
+                    android:textColor="@color/gray_text_55"
                     android:textSize="15sp"
                     android:textStyle="italic" />
             </LinearLayout>
@@ -157,8 +157,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:text="Consiglio Salutare"
-                        android:textColor="#E53935"
+                        android:text="@string/health_tip_title"
+                        android:textColor="@color/accent_red"
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -170,8 +170,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Preparati una bevanda calda e prenditi 10 minuti per te. Anche i piccoli gesti aiutano."
-                    android:textColor="#555555"
+                    android:text="@string/health_tip_sample"
+                    android:textColor="@color/black"
                     android:textSize="15sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>

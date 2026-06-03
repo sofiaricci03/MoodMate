@@ -28,8 +28,8 @@
                 android:background="@drawable/tab_active"
                 android:gravity="center"
                 android:padding="12dp"
-                android:text="Settimana"
-                android:textColor="#333333"
+                android:text="@string/tab_week"
+                android:textColor="@color/dark_gray_text"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -43,8 +43,8 @@
                 android:background="@drawable/tab_inactive"
                 android:gravity="center"
                 android:padding="12dp"
-                android:text="Mese"
-                android:textColor="#333333"
+                android:text="@string/tab_month"
+                android:textColor="@color/dark_gray_text"
                 android:textSize="15sp" /> -->
 
         </LinearLayout>
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            app:cardBackgroundColor="#C8E6C9"
+            app:cardBackgroundColor="@color/stats_card_green"
             app:cardCornerRadius="16dp"
             app:cardElevation="0dp">
 
@@ -77,20 +77,20 @@
                         android:layout_height="22dp"
                         android:layout_marginEnd="8dp"
                         android:src="@drawable/ic_trending_up"
-                        app:tint="#2E7D32" />
+                        app:tint="@color/dark_green_accent" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Media "
-                        android:textColor="#333333"
+                        android:text="@string/average_label"
+                        android:textColor="@color/dark_gray_text"
                         android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Benessere"
-                        android:textColor="#333333"
+                        android:text="@string/wellbeing_label"
+                        android:textColor="@color/dark_gray_text"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -106,14 +106,14 @@
                         android:id="@+id/statMediaScore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#1B1B1B"
+                        android:textColor="@color/nearly_black"
                         android:textSize="38sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#1B1B1B"
+                        android:textColor="@color/nearly_black"
                         android:textSize="30sp" />
 
                 </LinearLayout>
@@ -124,8 +124,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:text="Discreto"
-                    android:textColor="#333333"
+                    android:text="@string/wellbeing_decent"
+                    android:textColor="@color/dark_gray_text"
                     android:textSize="17sp" />
 
             </LinearLayout>
@@ -150,8 +150,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
-                    android:text="Andamento nel tempo"
-                    android:textColor="#1B1B1B"
+                    android:text="@string/trend_over_time"
+                    android:textColor="@color/nearly_black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -169,33 +169,33 @@
                         android:paddingEnd="8dp">
 
                         <LinearLayout android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1" android:gravity="center_vertical" android:orientation="horizontal">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Felice" android:textColor="#666666" android:textSize="11sp" android:layout_marginEnd="4dp" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="😄" android:textSize="14sp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/mood_happy" android:textColor="@color/gray_text_66" android:textSize="11sp" android:layout_marginEnd="4dp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/emoji_happy" android:textSize="14sp" />
                         </LinearLayout>
 
                         <LinearLayout android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1" android:gravity="center_vertical" android:orientation="horizontal">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sereno" android:textColor="#666666" android:textSize="11sp" android:layout_marginEnd="4dp" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="😊" android:textSize="14sp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/mood_serene" android:textColor="@color/gray_text_66" android:textSize="11sp" android:layout_marginEnd="4dp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/emoji_serene" android:textSize="14sp" />
                         </LinearLayout>
 
                         <LinearLayout android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1" android:gravity="center_vertical" android:orientation="horizontal">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Neutrale" android:textColor="#666666" android:textSize="11sp" android:layout_marginEnd="4dp" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="😐" android:textSize="14sp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/mood_neutral" android:textColor="@color/gray_text_66" android:textSize="11sp" android:layout_marginEnd="4dp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/emoji_neutral" android:textSize="14sp" />
                         </LinearLayout>
 
                         <LinearLayout android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1" android:gravity="center_vertical" android:orientation="horizontal">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Triste" android:textColor="#666666" android:textSize="11sp" android:layout_marginEnd="4dp" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="😢" android:textSize="14sp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/mood_sad" android:textColor="@color/gray_text_66" android:textSize="11sp" android:layout_marginEnd="4dp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/emoji_sad" android:textSize="14sp" />
                         </LinearLayout>
 
                         <LinearLayout android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1" android:gravity="center_vertical" android:orientation="horizontal">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Stressato" android:textColor="#666666" android:textSize="11sp" android:layout_marginEnd="4dp" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="😤" android:textSize="14sp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/mood_stressed" android:textColor="@color/gray_text_66" android:textSize="11sp" android:layout_marginEnd="4dp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/emoji_stressed" android:textSize="14sp" />
                         </LinearLayout>
 
                         <LinearLayout android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1" android:gravity="center_vertical" android:orientation="horizontal">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Arrabbiato" android:textColor="#666666" android:textSize="11sp" android:layout_marginEnd="4dp" />
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="😠" android:textSize="14sp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/mood_angry" android:textColor="@color/gray_text_66" android:textSize="11sp" android:layout_marginEnd="4dp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/emoji_angry" android:textSize="14sp" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -224,38 +224,38 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lu"
+                        android:text="@string/abbrev_mon"
                         android:layout_marginEnd="19dp"
                         android:layout_marginStart="90dp" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ma"
+                        android:text="@string/abbrev_tue"
                         android:layout_marginEnd="19dp" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Me"
+                        android:text="@string/abbrev_wed"
                         android:layout_marginEnd="19dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Gi"
+                        android:text="@string/abbrev_thu"
                         android:layout_marginEnd="19dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ve"
+                        android:text="@string/abbrev_fri"
                         android:layout_marginEnd="19dp" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sa"
+                        android:text="@string/abbrev_sat"
                         android:layout_marginEnd="19dp" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Do" />
+                        android:text="@string/abbrev_sun" />
 
 
                 </LinearLayout>

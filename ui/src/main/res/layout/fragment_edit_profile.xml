@@ -27,7 +27,7 @@
                 android:padding="10dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/user2"
-                android:contentDescription="Immagine del profilo utente" />
+                android:contentDescription="@string/profile_image_desc" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btnUploadPhoto"
@@ -37,7 +37,7 @@
                 android:layout_alignBottom="@id/editProfileImage"
                 android:layout_marginEnd="-10dp"
                 android:layout_marginBottom="-10dp"
-                android:contentDescription="Pulsante per caricare una nuova foto"
+                android:contentDescription="@string/upload_photo_desc"
                 android:src="@drawable/upload"
                 app:backgroundTint="@color/white"
                 app:fabSize="mini"
@@ -58,7 +58,7 @@
                 android:id="@+id/editProfileNameLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nome"
+                android:text="@string/profile_name_label"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -67,7 +67,7 @@
                 android:id="@+id/editProfileJobLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lavoro"
+                android:text="@string/profile_job_label"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -106,7 +106,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Nome"
+                            android:text="@string/profile_name_label"
                             android:textStyle="bold"
                             android:textColor="@color/black"/>
                         <EditText
@@ -116,7 +116,7 @@
                             android:background="@drawable/edit_text_background"
                             android:paddingHorizontal="10dp"
                             android:inputType="textPersonName"
-                            android:hint="Nome"
+                            android:hint="@string/profile_name_label"
                             android:importantForAutofill="no"/>
                     </LinearLayout>
 
@@ -128,7 +128,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Cognome"
+                            android:text="@string/surname_label"
                             android:textStyle="bold"
                             android:textColor="@color/black"/>
                         <EditText
@@ -138,7 +138,7 @@
                             android:background="@drawable/edit_text_background"
                             android:paddingHorizontal="10dp"
                             android:inputType="textPersonName"
-                            android:hint="Cognome"
+                            android:hint="@string/surname_label"
                             android:importantForAutofill="no"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -146,7 +146,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Età"
+                    android:text="@string/profile_age_label"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:layout_marginTop="10dp"/>
@@ -157,13 +157,13 @@
                     android:background="@drawable/edit_text_background"
                     android:paddingHorizontal="10dp"
                     android:inputType="number"
-                    android:hint="Età"
+                    android:hint="@string/profile_age_label"
                     android:importantForAutofill="no"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Professione"
+                    android:text="@string/profession_label"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:layout_marginTop="10dp"/>
@@ -174,7 +174,7 @@
                     android:background="@drawable/edit_text_background"
                     android:paddingHorizontal="10dp"
                     android:inputType="text"
-                    android:hint="Professione"
+                    android:hint="@string/profession_label"
                     android:importantForAutofill="no"/>
 
                 <LinearLayout
@@ -193,7 +193,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Ore lavoro/giorno"
+                            android:text="@string/profile_work_hours_label"
                             android:textSize="12sp"
                             android:textStyle="bold"
                             android:textColor="@color/black"/>
@@ -204,7 +204,7 @@
                             android:background="@drawable/edit_text_background"
                             android:paddingHorizontal="10dp"
                             android:inputType="numberDecimal"
-                            android:hint="0.0"
+                            android:hint="@string/hours_placeholder"
                             android:importantForAutofill="no"/>
                     </LinearLayout>
 
@@ -216,7 +216,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Ore sonno/giorno"
+                            android:text="@string/profile_sleep_hours_label"
                             android:textSize="12sp"
                             android:textStyle="bold"
                             android:textColor="@color/black"/>
@@ -227,7 +227,7 @@
                             android:background="@drawable/edit_text_background"
                             android:paddingHorizontal="10dp"
                             android:inputType="numberDecimal"
-                            android:hint="0.0"
+                            android:hint="@string/hours_placeholder"
                             android:importantForAutofill="no"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -235,7 +235,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Stile di vita"
+                    android:text="@string/lifestyle_label"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:layout_marginTop="10dp"/>
@@ -247,7 +247,7 @@
                     android:padding="10dp"
                     android:gravity="top"
                     android:inputType="textMultiLine"
-                    android:hint="Descrizione"
+                    android:hint="@string/description_placeholder"
                     android:importantForAutofill="no"/>
 
                 <LinearLayout
@@ -263,7 +263,7 @@
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_weight="1"
-                        android:text="Salva"
+                        android:text="@string/save_button"
                         android:backgroundTint="@color/button_login_green"
                         android:textColor="@color/black"
                         android:layout_marginEnd="10dp"
@@ -275,7 +275,7 @@
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_weight="1"
-                        android:text="Annulla"
+                        android:text="@string/cancel_button"
                         android:backgroundTint="@color/white"
                         android:textColor="@color/black"
                         app:strokeColor="@color/black"

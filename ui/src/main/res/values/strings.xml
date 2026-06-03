@@ -7,4 +7,101 @@
     <string name="no_account">Non hai un account?</string>
     <string name="register_link">Registrati!</string>
     <string name="home_title">Benvenuto/a nella home!</string>
+
+    <!-- Home Activity -->
+    <string name="greeting_morning">Buongiorno!</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_calendar">Calendario</string>
+    <string name="nav_add_new">Aggiungi nuovo</string>
+    <string name="nav_statistics">Statistiche</string>
+    <string name="nav_profile">Profilo</string>
+
+    <!-- Home Fragment -->
+    <string name="today">Oggi</string>
+    <string name="weather_internet">Internet </string>
+    <string name="weather_loading">Caricamento meteo...</string>
+    <string name="weather_provider">Dati forniti da Open-Meteo</string>
+    <string name="how_do_you_feel">Come ti senti oggi?</string>
+    <string name="motivational_quote_title">Frase Motivazionale</string>
+    <string name="home_quote_sample">\"Concediti il tempo di cui hai bisogno. Non c\'è fretta.\"</string>
+    <string name="health_tip_title">Consiglio Salutare</string>
+    <string name="health_tip_sample">Preparati una bevanda calda e prenditi 10 minuti per te. Anche i piccoli gesti aiutano.</string>
+
+    <!-- Profile Fragment -->
+    <string name="logout">Logout</string>
+    <string name="profile_name_label">Nome</string>
+    <string name="profile_job_label">Lavoro</string>
+    <string name="profile_age_label">Età</string>
+    <string name="profile_work_hours_label">Ore lavoro/giorno</string>
+    <string name="profile_sleep_hours_label">Ore sonno/giorno</string>
+    <string name="empty_value">--</string>
+    <string name="lifestyle_label">Stile di vita</string>
+    <string name="edit_profile_button">Modifica profilo</string>
+
+    <!-- Register Activity -->
+    <string name="register_title">Registrati per migliorare\nla tua giornata!</string>
+    <string name="email_placeholder">Inserisci email</string>
+    <string name="password_placeholder">Inserisci password</string>
+    <string name="name_placeholder">Mario</string>
+    <string name="surname_placeholder">Rossi</string>
+    <string name="age_placeholder">Es. 25</string>
+    <string name="profession_placeholder">Es. Studente</string>
+    <string name="habits_placeholder">Descrivi le tue abitudini...</string>
+    <string name="register_button">Registrati</string>
+    <string name="surname_label">Cognome</string>
+    <string name="profession_label">Professione</string>
+
+    <!-- Calendar Fragment -->
+    <string name="prev_month">&lt; </string>
+    <string name="next_month">&gt; </string>
+    <string name="month_year_placeholder">MESE, ANNO</string>
+    <string name="day_mon">L</string>
+    <string name="day_tue">M</string>
+    <string name="day_wed">M</string>
+    <string name="day_thu">G</string>
+    <string name="day_fri">V</string>
+    <string name="day_sat">S</string>
+    <string name="day_sun">D</string>
+
+    <!-- Mood Input Fragment -->
+    <string name="how_feeling_header">Come ti senti?</string>
+    <string name="mood_happy">Felice</string>
+    <string name="mood_serene">Sereno</string>
+    <string name="mood_neutral">Neutrale</string>
+    <string name="mood_sad">Triste</string>
+    <string name="mood_angry">Arrabbiato</string>
+    <string name="mood_stressed">Stressato</string>
+    <string name="daily_notes_label">Note della giornata</string>
+    <string name="notes_placeholder">Raccontaci qualcosa...</string>
+    <string name="save_mood_button">Salva Mood</string>
+
+    <!-- Statistics Fragment -->
+    <string name="tab_week">Settimana</string>
+    <string name="tab_month">Mese</string>
+    <string name="average_label">Media </string>
+    <string name="wellbeing_label">Benessere</string>
+    <string name="wellbeing_decent">Discreto</string>
+    <string name="trend_over_time">Andamento nel tempo</string>
+    <string name="abbrev_mon">Lu</string>
+    <string name="abbrev_tue">Ma</string>
+    <string name="abbrev_wed">Me</string>
+    <string name="abbrev_thu">Gi</string>
+    <string name="abbrev_fri">Ve</string>
+    <string name="abbrev_sat">Sa</string>
+    <string name="abbrev_sun">Do</string>
+    <string name="emoji_happy">😄</string>
+    <string name="emoji_serene">😊</string>
+    <string name="emoji_neutral">😐</string>
+    <string name="emoji_sad">😢</string>
+    <string name="emoji_stressed">😤</string>
+    <string name="emoji_angry">😠</string>
+
+    <!-- Edit Profile Fragment -->
+    <string name="profile_image_desc">Immagine del profilo utente</string>
+    <string name="upload_photo_desc">Pulsante per caricare una nuova foto</string>
+    <string name="cancel_button">Annulla</string>
+    <string name="save_button">Salva</string>
+    <string name="description_placeholder">Descrizione</string>
+    <string name="hours_placeholder">0.0</string>
+
 </resources>

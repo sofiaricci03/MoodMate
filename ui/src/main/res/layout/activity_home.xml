@@ -22,7 +22,7 @@
             android:layout_marginStart="25dp"
             android:layout_marginTop="35dp"
             android:layout_marginEnd="25dp"
-            android:text="Buongiorno!"
+            android:text="@string/greeting_morning"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_alignParentBottom="true"
-            android:background="#FFFFFF"
+            android:background="@color/white"
             android:elevation="8dp"
             android:gravity="center"
             android:baselineAligned="false"
@@ -66,11 +66,11 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/home"
-                    android:contentDescription="Home" />
+                    android:contentDescription="@string/nav_home" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Home"
+                    android:text="@string/nav_home"
                     android:textSize="10sp" />
             </LinearLayout>
 
@@ -89,11 +89,11 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/calendar"
-                    android:contentDescription="Calendario" />
+                    android:contentDescription="@string/nav_calendar" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Calendario"
+                    android:text="@string/nav_calendar"
                     android:textSize="10sp" />
             </LinearLayout>
 
@@ -108,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:src="@drawable/plus"
-                    android:contentDescription="Aggiungi nuovo"
+                    android:contentDescription="@string/nav_add_new"
                     app:backgroundTint="@color/button_login_green"
                     app:tint="@color/white"
                     app:borderWidth="0dp"
@@ -131,11 +131,11 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/graph"
-                    android:contentDescription="Statistiche" />
+                    android:contentDescription="@string/nav_statistics" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Statistiche"
+                    android:text="@string/nav_statistics"
                     android:textSize="10sp" />
             </LinearLayout>
 
@@ -154,11 +154,11 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/user"
-                    android:contentDescription="Profilo" />
+                    android:contentDescription="@string/nav_profile" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Profilo"
+                    android:text="@string/nav_profile"
                     android:textSize="10sp" />
             </LinearLayout>
         </LinearLayout>
