@@ -1,16 +1,23 @@
 package com.corsolp.data.remote.api
 
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 
-class RetrofitClient {
-    private val base_url = "https://api.open-meteo.com/"
+object RetrofitClient {
+    private const val BASE_URL = "https://api.open-meteo.com/"
 
-    private val retrofitService = Retrofit
-        .Builder()
-        .baseUrl(base_url)
+    private val moshi = Moshi.Builder()
+        .add(KotlinJsonAdapterFactory())
         .build()
 
-    val weatherService : WeatherService by lazy {
-        retrofitService.create(WeatherService::class.java)
+    private val retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .build()
+
+    val weatherApi: WeatherApi by lazy {
+        retrofit.create(WeatherApi::class.java)
     }
 }
