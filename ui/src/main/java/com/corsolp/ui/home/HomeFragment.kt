@@ -115,6 +115,7 @@ class HomeFragment : Fragment() {
         val weatherTempText = view.findViewById<TextView>(R.id.weatherTemp)
         val weatherDescText = view.findViewById<TextView>(R.id.weatherDesc)
         val homeQuoteText = view.findViewById<TextView>(R.id.homeQuote)
+        val healthyTipText = view.findViewById<TextView>(R.id.homeTipDesc)
 
         lifecycleScope.launch(Dispatchers.IO) {
             val user = userRepository.getUserByEmail(userEmail)
@@ -163,6 +164,8 @@ class HomeFragment : Fragment() {
                 } else {
                     homeQuoteText.text = "\"Concediti il tempo di cui hai bisogno. Non c'è fretta.\""
                 }
+
+                healthyTipText.text = getHealthyTip(weather?.weatherCode)
             }
         }
     }
@@ -182,6 +185,42 @@ class HomeFragment : Fragment() {
             85, 86 -> "Rovesci di neve"
             95, 96, 99 -> "Temporale"
             else -> "Variabile"
+        }
+    }
+
+    private fun getHealthyTip(weatherCode: Int?): String {
+        // Frasi per bel tempo
+        val outdoorTips = listOf(
+            "Il tempo è fantastico! Esci a fare una passeggiata di 20 minuti.",
+            "Prendi un po' di sole per fare il pieno di vitamina D.",
+            "Organizza un'uscita all'aperto o un caffè con un amico.",
+            "Fai un po' di stretching o esercizio all'aria aperta."
+        )
+
+        // Frasi per brutto tempo
+        val indoorTips = listOf(
+            "Goditi il meteo fuori con una tisana calda e un buon libro.",
+            "Ottima giornata per dedicarti a quell'hobby casalingo che rimandi da un po'.",
+            "Fai 10 minuti di yoga o meditazione nel tuo salotto.",
+            "Il brutto tempo è la scusa perfetta per un bel film sotto le coperte.",
+            "Riordina il tuo spazio: un ambiente pulito aiuta a rilassare la mente."
+        )
+
+        // Frasi neutre
+        val neutralTips = listOf(
+            "Mettiti comodo e ascolta il tuo podcast o album preferito.",
+            "Sperimenta in cucina e prova una nuova ricetta salutare.",
+            "Prenditi 5 minuti per scrivere su un diario 3 cose per cui sei grato oggi."
+        )
+
+        // Se meteo non disponibile, consiglio neutro
+        if (weatherCode == null) return neutralTips.random()
+
+        return when (weatherCode) {
+            0, 1, 2, 3 -> outdoorTips.random() // Sereno o parzialmente nuvoloso
+            51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 71, 73, 75, 77, 80, 81, 82, 85, 86, 95, 96, 99 -> indoorTips.random() // Pioggia, Neve, Temporale
+            45, 48 -> neutralTips.random() // Nebbia
+            else -> neutralTips.random()
         }
     }
 }
