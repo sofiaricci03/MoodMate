@@ -13,6 +13,8 @@ import com.corsolp.domain.repository.NotificationRepository
 import com.corsolp.data.repository.NotificationRepositoryImpl
 import com.corsolp.domain.repository.MoodRepository
 import com.corsolp.domain.repository.WeatherRepository
+import com.corsolp.domain.repository.QuoteRepository
+import com.corsolp.data.repository.QuoteRepositoryImpl
 
 class RepositoryProviderImpl(private val context: Context) : RepositoryProvider {
 
@@ -39,5 +41,10 @@ class RepositoryProviderImpl(private val context: Context) : RepositoryProvider 
     }
     override fun weatherRepository(): WeatherRepository {
         return weatherRepository
+    }
+    private val quoteRepository by lazy { QuoteRepositoryImpl() }
+
+    override fun quoteRepository(): QuoteRepository {
+        return quoteRepository
     }
 }

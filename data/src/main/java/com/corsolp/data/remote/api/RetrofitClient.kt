@@ -20,4 +20,14 @@ object RetrofitClient {
     val weatherApi: WeatherApi by lazy {
         retrofit.create(WeatherApi::class.java)
     }
+
+    private const val QUOTE_BASE_URL = "https://zenquotes.io/"
+
+    val quoteApi: QuoteApi by lazy {
+        Retrofit.Builder()
+            .baseUrl(QUOTE_BASE_URL)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .build()
+            .create(QuoteApi::class.java)
+    }
 }

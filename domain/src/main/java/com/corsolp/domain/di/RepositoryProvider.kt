@@ -5,6 +5,8 @@ import com.corsolp.domain.repository.UserRepository
 import com.corsolp.domain.repository.PreferencesRepository
 import com.corsolp.domain.repository.NotificationRepository
 import com.corsolp.domain.repository.WeatherRepository
+import com.corsolp.domain.repository.QuoteRepository
+
 
 
 interface RepositoryProvider {
@@ -13,4 +15,5 @@ interface RepositoryProvider {
     fun notificationRepository(): NotificationRepository
     fun moodRepository(): MoodRepository
     fun weatherRepository(): WeatherRepository
+    fun quoteRepository(): QuoteRepository
 }

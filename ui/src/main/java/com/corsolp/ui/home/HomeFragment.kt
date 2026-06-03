@@ -103,15 +103,18 @@ class HomeFragment : Fragment() {
 
     // Svolge il caricamento dal DB e dall'API con le coordinate dinamiche
     private fun loadHomeData(view: View, lat: Double, lon: Double) {
+        //Recupero repository
         val repositoryProvider = ServiceLocator.requireRepositoryProvider()
         val userRepository = repositoryProvider.userRepository()
         val moodRepository = repositoryProvider.moodRepository()
         val weatherRepository = repositoryProvider.weatherRepository()
+        val quoteRepository = repositoryProvider.quoteRepository()
         val userEmail = repositoryProvider.preferencesRepository().getSavedUserEmail() ?: ""
 
         val moodStatusText = view.findViewById<TextView>(R.id.homeMoodStatus)
         val weatherTempText = view.findViewById<TextView>(R.id.weatherTemp)
         val weatherDescText = view.findViewById<TextView>(R.id.weatherDesc)
+        val homeQuoteText = view.findViewById<TextView>(R.id.homeQuote)
 
         lifecycleScope.launch(Dispatchers.IO) {
             val user = userRepository.getUserByEmail(userEmail)
@@ -119,6 +122,7 @@ class HomeFragment : Fragment() {
             val todayMood = moodRepository.getMoodByDate(userEmail, todayDbFormat)
 
             val weather = weatherRepository.getCurrentWeather(lat, lon)
+            val quote = quoteRepository.getRandomQuote()
 
             // Converte le coordinate GPS nel nome del comune
             val cityName = if (lat == 41.53 && lon == 12.28) {
@@ -151,6 +155,13 @@ class HomeFragment : Fragment() {
                 } else {
                     weatherTempText.text = "$cityName --°C"
                     weatherDescText.text = "Meteo non disponibile"
+                }
+
+                // Mostra la citazione se internet è disponibile, altrimenti mostra una citazione di default
+                if (quote != null) {
+                    homeQuoteText.text = "\"${quote.text}\"\n- ${quote.author}"
+                } else {
+                    homeQuoteText.text = "\"Concediti il tempo di cui hai bisogno. Non c'è fretta.\""
                 }
             }
         }
