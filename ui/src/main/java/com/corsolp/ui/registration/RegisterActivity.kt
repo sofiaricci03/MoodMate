@@ -18,67 +18,91 @@ import kotlinx.coroutines.withContext
 class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //Collega la logica al file grafico activity_register.xml
         setContentView(R.layout.activity_register)
 
-        // La UI deve parlare solo con il Domain per rispettare la Clean Architecture
         val userRepository = ServiceLocator.requireRepositoryProvider().userRepository()
-
-        //Recupero del bottone di registrazione
         val registerButton = findViewById<Button>(R.id.registerButton)
 
         registerButton.setOnClickListener {
-            // Recupero dei dati dagli EditText
-            // Legge il testo dagli EditText e lo converte in Stringa
-            val email = findViewById<EditText>(R.id.regEmail).text.toString()
-            val password = findViewById<EditText>(R.id.regPassword).text.toString()
+            // Riferimenti alle EditText per poter mostrare gli errori visivi
+            val editEmail = findViewById<EditText>(R.id.regEmail)
+            val editPassword = findViewById<EditText>(R.id.regPassword)
+            val editEta = findViewById<EditText>(R.id.regEta)
+            val editOreLavoro = findViewById<EditText>(R.id.regOreLavoro)
+            val editOreSonno = findViewById<EditText>(R.id.regOreSonno)
+
+            // Estrazione dei valori
+            val email = editEmail.text.toString()
+            val password = editPassword.text.toString()
             val name = findViewById<EditText>(R.id.regNome).text.toString()
             val surname = findViewById<EditText>(R.id.regCognome).text.toString()
-
-            // Per i numeri usiamo toIntOrNull o toFloatOrNull per evitare crash
-            // se l'utente lascia il campo vuoto (restituendo un valore di default 0)
-            val age = findViewById<EditText>(R.id.regEta).text.toString().toIntOrNull() ?: 0
+            val age = editEta.text.toString().toIntOrNull() ?: 0
             val job = findViewById<EditText>(R.id.regProfessione).text.toString()
-            val workHours = findViewById<EditText>(R.id.regOreLavoro).text.toString().toFloatOrNull() ?: 0f
-            val sleepHours = findViewById<EditText>(R.id.regOreSonno).text.toString().toFloatOrNull() ?: 0f
+            val workHours = editOreLavoro.text.toString().toFloatOrNull() ?: 0f
+            val sleepHours = editOreSonno.text.toString().toFloatOrNull() ?: 0f
             val bio = findViewById<EditText>(R.id.regStileVita).text.toString()
 
-            //Controllo che i campi email e password non siano vuoti
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                // Usiamo lifecycleScope per far sì che se l'utente chiude la pagina, l'operazione si fermi
-                // Usiamo Dispatchers.IO perché le operazioni su disco (DB) non devono rallentare la grafica
-                lifecycleScope.launch(Dispatchers.IO) {
-                    // Creazione entità User con i dati inseriti
-                    val newUser = User(
-                        email = email,
-                        password = password,
-                        name = name,
-                        surname = surname,
-                        age = age,
-                        job = job,
-                        workHours = workHours,
-                        sleepHours = sleepHours,
-                        bio = bio
-                    )
+            var isValid = true
 
-                    // Inserimento nella repository
-                    userRepository.insertUser(newUser)
-                    // Per mostrare messaggi (Toast) o cambiare pagina dobbiamo tornare sul thread Main
-                    withContext(Dispatchers.Main) {
-                        Toast.makeText(this@RegisterActivity, "Registrazione completata! Ora effettua il login.", Toast.LENGTH_SHORT).show()
+            // 1. Controllo Email e Password obbligatorie
+            if (email.isEmpty()) {
+                editEmail.error = "L'email è obbligatoria"
+                isValid = false
+            }
+            if (password.isEmpty()) {
+                editPassword.error = "La password è obbligatoria"
+                isValid = false
+            }
 
-                        //Ritorno al login
-                        val intent = Intent(this@RegisterActivity, MainActivity::class.java)
-                        // Pulisce lo stack delle attività per impedire di tornare indietro col tasto back
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            // 2. Controllo Età (limite massimo 200 e validazione input vuoto/zero)
+            if (age <= 0 || age > 200) {
+                editEta.error = "Inserisci un'età valida compresa tra 1 e 200 anni"
+                isValid = false
+            }
 
-                        startActivity(intent)
-                        finish()
-                    }
+            // 3. Controllo Somma Ore (limite massimo 24 ore)
+            if (workHours + sleepHours > 24f) {
+                editOreLavoro.error = "La somma di lavoro e sonno non può superare 24 ore"
+                editOreSonno.error = "La somma di lavoro e sonno non può superare 24 ore"
+                isValid = false
+            }
+
+            // Se uno o più controlli falliscono, interrompiamo la registrazione
+            if (!isValid) {
+                Toast.makeText(
+                    this,
+                    "Controlla i dati inseriti. Alcuni campi contengono errori.",
+                    Toast.LENGTH_LONG
+                ).show()
+                return@setOnClickListener
+            }
+
+            // Se tutto è valido, procediamo al salvataggio nel database
+            lifecycleScope.launch(Dispatchers.IO) {
+                val newUser = User(
+                    email = email,
+                    password = password,
+                    name = name,
+                    surname = surname,
+                    age = age,
+                    job = job,
+                    workHours = workHours,
+                    sleepHours = sleepHours,
+                    bio = bio
+                )
+
+                userRepository.insertUser(newUser)
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        this@RegisterActivity,
+                        "Registrazione completata! Ora effettua il login.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    finish()
                 }
-            } else {
-                // Avviso se i campi obbligatori mancano
-                Toast.makeText(this, "Email e Password sono obbligatorie", Toast.LENGTH_SHORT).show()
             }
         }
     }
