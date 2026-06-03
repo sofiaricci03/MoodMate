@@ -11,7 +11,7 @@
         android:orientation="vertical"
         android:padding="24dp">
 
-        <!-- Tab Settimana / Mese -->
+        <!-- Tab Settimana -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,20 +32,6 @@
                 android:textColor="@color/dark_gray_text"
                 android:textSize="15sp"
                 android:textStyle="bold" />
-
-            <!-- Funzionalità temporaneamente rimossa
-             <TextView
-                android:id="@+id/tabMese"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/tab_inactive"
-                android:gravity="center"
-                android:padding="12dp"
-                android:text="@string/tab_month"
-                android:textColor="@color/dark_gray_text"
-                android:textSize="15sp" /> -->
 
         </LinearLayout>
 
