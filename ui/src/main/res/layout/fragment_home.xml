@@ -15,7 +15,6 @@
             android:id="@+id/homeGreeting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Buongiorno!"
             android:textColor="#333333"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -48,7 +47,7 @@
                     android:id="@+id/weatherTemp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bologna --°C"
+                    android:text="Roma --°C"
                     android:textColor="#1976D2"
                     android:textSize="18sp"
                     android:textStyle="bold" />
