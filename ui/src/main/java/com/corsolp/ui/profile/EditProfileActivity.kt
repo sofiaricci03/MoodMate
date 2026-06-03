@@ -85,6 +85,36 @@ class EditProfileActivity : AppCompatActivity() {
 
         // 3. SALVATAGGIO
         btnSalva.setOnClickListener {
+            // Estraiamo i valori inseriti dall'utente (fall-back a 0f se il campo è vuoto)
+            val eta = editEta.text.toString().toIntOrNull() ?: 0
+            val oreLavoro = editOreLavoro.text.toString().toFloatOrNull() ?: 0f
+            val oreSonno = editOreSonno.text.toString().toFloatOrNull() ?: 0f
+
+            var isValid = true
+
+            // Controllo Età (limite massimo 200, possiamo anche evitare l'età a 0)
+            if (eta <= 0 || eta > 200) {
+                editEta.error = "Inserisci un'età valida compresa tra 1 e 200 anni"
+                isValid = false
+            }
+
+            // Controllo Somma Ore (limite massimo 24 ore)
+            if (oreLavoro + oreSonno > 24f) {
+                editOreLavoro.error = "La somma di lavoro e sonno non può superare 24 ore"
+                editOreSonno.error = "La somma di lavoro e sonno non può superare 24 ore"
+                isValid = false
+            }
+
+            // Se uno dei controlli è fallito, interrompiamo il salvataggio e avvisiamo l'utente
+            if (!isValid) {
+                Toast.makeText(
+                    this@EditProfileActivity,
+                    "Controlla i dati inseriti. Alcuni campi contengono errori.",
+                    Toast.LENGTH_LONG
+                ).show()
+                return@setOnClickListener
+            }
+
             lifecycleScope.launch(Dispatchers.IO) {
                 val currentUser = userRepository.getUserByEmail(email)
                 val updatedUser = User(
