@@ -6,7 +6,7 @@ L’obiettivo del progetto è la realizzazione di un’applicazione mobile svilu
 ---
 ## Struttura del Progetto
 Prima dello sviluppo dell'applicazione, è stato implementato un mockup in figma 
-https://www.figma.com/design/0G1lLEznQgFjJybXxowbYl/Android-Mockup--Community-?node-id=1-126&t=u2IQWHWFHLeNNg4h-1
+ **[Link Mockup Figma](https://www.figma.com/design/0G1lLEznQgFjJybXxowbYl/Android-Mockup--Community-?node-id=1-126&t=u2IQWHWFHLeNNg4h-1)**
 
 L'applicazione è suddivisa in 4 moduli indipendenti:
 - app: modulo Applicazione (Entry Point)
@@ -15,10 +15,11 @@ L'applicazione è suddivisa in 4 moduli indipendenti:
 - data: modulo Dati (Data Layer)
 
 ### 1. Modulo App
-Contiene le entry point dell'applicazione. AndroidManifest.xml: Definisce 3 Activity principali:
+Contiene le entry point dell'applicazione. AndroidManifest.xml: Definisce 4 Activity principali:
 - MainActivity (Login) - Activity principale lanciata all'avvio
 - RegisterActivity - Pagina di registrazione
 - HomeActivity - Home page principale
+- EditProfileActivity - Pagina di modifica dei dati personali
 Moodmate.kt è la Classe Application che inizializza il Service Locator per l'iniezione delle dipendenze
 
 ### 2. Modulo Domain
@@ -38,6 +39,7 @@ ui/src/main/java/com/corsolp/ui/
 - moodInput: input dello stato d'umore
 - statistics: tatistiche e analitiche
 - profile: profilo utente
+- editeProfile: modifica dati profilo utente
 
 Le tecnologie adottate sono state ViewModel + LiveData (per la gestione dello stato UI) e Kotlin Coroutines (per le operazioni asincrone)
 
@@ -46,7 +48,7 @@ Il seguente modulo si occupa del recupero, gestione dati ed è suddiviso in:
 data/src/main/java/com/corsolp/data/
 - di: dependency injection (RepositoryProviderImpl)
 - local: database room (persistenza locale)
-- remote: API REST (Retrofit + Moshi)
+- remote: Chiamate API (Retrofit + Moshi)
 - repository: implementazioni concrete dei repository
 - worker: background tasks (WorkManager)
 
@@ -59,15 +61,17 @@ Il progetto è ben organizzato in 4 moduli indipendenti (app, ui, domain, data),
 
 L'applicazione è stata progettata seguendo i principi delle moderne architetture software Android, con particolare attenzione alla modularità, alla manutenibilità del codice e alla scalabilità del progetto. La separazione delle responsabilità tra i diversi livelli dell'applicazione consente di ottenere una struttura chiara e ben organizzata, facilitando sia lo sviluppo che le future attività di manutenzione.
 
-Dal punto di vista tecnologico, il progetto adotta uno stack moderno e consolidato. L'intera applicazione è sviluppata in Kotlin, scelto per la sua sicurezza del codice e le elevate prestazioni. La gestione dello stato dell'interfaccia utente è affidata all'architettura ViewModel associata a LiveData, che consente un aggiornamento efficiente e reattivo delle schermate. Le operazioni asincrone vengono invece gestite tramite Kotlin Coroutines migliorando l'esperienza utente. 
+Dal punto di vista tecnologico, il progetto adotta uno stack moderno e consolidato. L'intera applicazione è sviluppata in Kotlin scelto per la sua efficienza per la programmazione in sistemi mobile Android. La gestione dello stato dell'interfaccia utente è affidata all'architettura ViewModel associata a LiveData, che consente un aggiornamento efficiente e reattivo delle schermate. Le operazioni asincrone vengono invece gestite tramite Kotlin Coroutines migliorando l'esperienza utente. 
 Per la persistenza locale dei dati è stata utilizzata la libreria Room, che fornisce un livello di astrazione robusto e sicuro. Le attività pianificate e le operazioni eseguite in background sono invece gestite tramite WorkManager, assicurando affidabilità.
 
 Un ulteriore elemento di qualità architetturale è rappresentato dalla gestione centralizzata delle dipendenze attraverso un Service Locator implementato nella classe Moodmate.kt. Questo approccio permette di mantenere una configurazione coerente dei componenti applicativi, facilita l'introduzione di oggetti simulati (mock) durante i test e riduce l'accoppiamento tra i diversi moduli dell'applicazione.
 
-Le funzionalità implementate sono state progettate con un focus chiaro e ben definito. L'applicazione offre un sistema di autenticazione utente, il monitoraggio dell'umore nel tempo, la visualizzazione dei dati tramite un calendario interattivo, strumenti statistici per l'analisi dell'andamento emotivo e una sezione dedicata alla gestione del profilo personale. Per garantire un utilizzo affidabile dell'applicazione, è stata implementata una soluzione che combina un database locale tramite Room e la sincronizzazione dei dati tramite API REST. In questo modo, l'utente può continuare a utilizzare l'app anche senza connessione a Internet, mentre i dati vengono aggiornati automaticamente quando la connessione torna disponibile.
+Le funzionalità implementate sono state progettate con un focus chiaro e ben definito. L'applicazione offre un sistema di autenticazione utente, il monitoraggio dell'umore nel tempo, la visualizzazione dei dati tramite un calendario interattivo, strumenti statistici per l'analisi dell'andamento emotivo settimnale e una sezione dedicata alla gestione del profilo personale. 
 
 ---
 ## Implementazioni future
 Nonostante il progetto soddisfi pienamente i requisiti funzionali e architetturali, si possono prevedere le seguenti estensioni future:
 - possibilità di una visione mensile delle statistiche
 - cambiamento dell'umore giornaliero anche se già inserito e riprogrammazione dei consigli per quella giornata
+- consigli salutari presi da un'API
+- frasi motivazionali disponibili in italiano e dipendenti dall'umore inserito dall'utente
