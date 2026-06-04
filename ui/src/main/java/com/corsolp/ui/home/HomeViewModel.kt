@@ -46,10 +46,13 @@ class HomeViewModel(
                 quoteRepository.getRandomQuote()
             }
 
+
+
             _uiState.value = HomeUiState(
                 todayMood = todayMood,
                 weather = weather,
-                quote = quote
+                quote = quote,
+                isLoaded = true
             )
         }
     }
@@ -57,5 +60,6 @@ class HomeViewModel(
 data class HomeUiState(
     val weather: Weather?,
     val quote: Quote?,
-    val todayMood: Mood?
+    val todayMood: Mood?,
+    val isLoaded: Boolean = false
 )

@@ -58,8 +58,7 @@ class HomeFragment : Fragment() {
             provider.moodRepository(),
             provider.preferencesRepository()
         )
-
-        viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
 
         viewModel.uiState.observe(viewLifecycleOwner) { state ->
             updateUI(view, state)
@@ -69,6 +68,9 @@ class HomeFragment : Fragment() {
     }
     // Controlla se i permessi sono già attivi, se non lo sono li richiede a schermo
     private fun checkLocationPermissionsAndLoad() {
+        // Se i dati sono già nello state, non ricaricare
+        if (viewModel.uiState.value?.isLoaded == true) return
+
         val coarseGranted = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
         val fineGranted = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
 
@@ -106,7 +108,7 @@ class HomeFragment : Fragment() {
         return Pair(41.53, 12.28)
     }
 
-    // Svolge il caricamento dal DB e dall'API con le coordinate dinamiche
+    // Ritorna nome città
     private fun getCityName(lat: Double, lon: Double): String {
         if (lat == 41.53 && lon == 12.28) return "Roma"
 
