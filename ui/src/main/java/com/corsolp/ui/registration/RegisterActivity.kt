@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.corsolp.domain.di.ServiceLocator
 import com.corsolp.domain.models.User
 import com.corsolp.ui.R
-import com.corsolp.ui.login.MainActivity
+import com.corsolp.ui.login.LoginActivity
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -32,7 +32,7 @@ class RegisterActivity : AppCompatActivity() {
                         "Registrazione completata! Ora effettua il login.",
                         Toast.LENGTH_SHORT
                     ).show()
-                    val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+                    val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                     finish()

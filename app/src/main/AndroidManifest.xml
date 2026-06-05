@@ -23,7 +23,7 @@
 
         <!-- Login (main) -->
         <activity
-            android:name="com.corsolp.ui.login.MainActivity"
+            android:name="com.corsolp.ui.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,7 +38,7 @@
 
         <!-- Home page -->
         <activity
-            android:name="com.corsolp.ui.home.HomeActivity"
+            android:name="com.corsolp.ui.main.MainActivity"
             android:exported="false" />
         <!-- Edit profile -->
         <activity

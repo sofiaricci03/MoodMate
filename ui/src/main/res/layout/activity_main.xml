@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_gray"
-    tools:context="com.corsolp.ui.login.MainActivity">
+    tools:context="com.corsolp.ui.login.LoginActivity">
 
     <TextView
         android:id="@+id/mainTitle"

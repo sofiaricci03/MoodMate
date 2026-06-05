@@ -10,10 +10,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.corsolp.domain.di.ServiceLocator
 import com.corsolp.ui.databinding.ActivityMainBinding
-import com.corsolp.ui.home.HomeActivity
+import com.corsolp.ui.main.MainActivity
 import com.corsolp.ui.registration.RegisterActivity
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var loginViewModel: LoginViewModel
     // Il ViewBinding serve per accedere agli elementi grafici (ID) senza usare tanti findViewById
@@ -36,20 +36,20 @@ class MainActivity : AppCompatActivity() {
         loginViewModel.loginResult.observe(this) { result ->
             when (result) {
                 is LoginViewModel.LoginResult.AlreadyLoggedIn -> {
-                    val intent = Intent(this, HomeActivity::class.java)
+                    val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
 
                 is LoginViewModel.LoginResult.Success -> {
                     Toast.makeText(
-                        this@MainActivity,
+                        this@LoginActivity,
                         "Benvenuto!",
                         Toast.LENGTH_SHORT
                     ).show()
 
                     val emailInserita = binding.emailEditText.text.toString()
-                    val intent = Intent(this@MainActivity, HomeActivity::class.java)
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     intent.putExtra("USER_EMAIL", emailInserita)
                     startActivity(intent)
                     finish()
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
                 is LoginViewModel.LoginResult.InvalidCredentials -> {
                     Toast.makeText(
-                        this@MainActivity,
+                        this@LoginActivity,
                         "Email o password errati",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
 
                 is LoginViewModel.LoginResult.EmptyFields -> {
                     Toast.makeText(
-                        this@MainActivity,
+                        this@LoginActivity,
                         "Inserisci email e password",
                         Toast.LENGTH_SHORT
                     ).show()

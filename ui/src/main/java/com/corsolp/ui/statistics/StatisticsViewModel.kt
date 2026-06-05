@@ -34,8 +34,6 @@ class StatisticsViewModel(
     val uiState: LiveData<StatisticsUiState> = _uiState
 
     fun loadWeeklyStats() {
-        // Non ricarica se i dati sono già presenti
-        if (_uiState.value?.isLoaded == true) return
 
         viewModelScope.launch {
             val userEmail = preferencesRepository.getSavedUserEmail() ?: ""
@@ -52,7 +50,6 @@ class StatisticsViewModel(
                 currentWeekDays = currentWeekDays,
                 averageScore = averageScore,
                 averageLabel = averageLabel,
-                isLoaded = true
             )
         }
     }
@@ -110,5 +107,4 @@ data class StatisticsUiState(
     val currentWeekDays: List<String> = emptyList(),
     val averageScore: String = "-/6",
     val averageLabel: String = "Nessun dato",
-    val isLoaded: Boolean = false
 )

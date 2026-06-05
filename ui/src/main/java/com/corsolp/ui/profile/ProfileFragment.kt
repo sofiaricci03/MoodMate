@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.corsolp.domain.di.ServiceLocator
 import com.corsolp.ui.R
-import com.corsolp.ui.login.MainActivity
+import com.corsolp.ui.login.LoginActivity
 
 class ProfileFragment : Fragment() {
 
@@ -70,7 +70,7 @@ class ProfileFragment : Fragment() {
         // Tasto Logout
         view.findViewById<TextView>(R.id.logoutButton).setOnClickListener {
             profileViewModel.logout()
-            val intent = Intent(requireContext(), MainActivity::class.java)
+            val intent = Intent(requireContext(), LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             requireActivity().finish()

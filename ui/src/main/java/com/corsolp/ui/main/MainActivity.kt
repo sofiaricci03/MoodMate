@@ -1,4 +1,4 @@
-package com.corsolp.ui.home
+package com.corsolp.ui.main
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -13,9 +13,11 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.corsolp.domain.di.RepositoryProvider
 import com.corsolp.domain.di.ServiceLocator
 import com.corsolp.ui.R
 import com.corsolp.ui.calendar.CalendarFragment
+import com.corsolp.ui.home.HomeFragment
 import com.corsolp.ui.moodInput.MoodInputFragment
 import com.corsolp.ui.profile.ProfileFragment
 import com.corsolp.ui.statistics.StatisticsFragment
@@ -24,7 +26,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class HomeActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     private var userEmail: String? = null
     private lateinit var bottomNav: LinearLayout
     private lateinit var greetingText: TextView
@@ -46,7 +48,7 @@ class HomeActivity : AppCompatActivity() {
         findViewById<FloatingActionButton>(R.id.fabAddMood).setOnClickListener {
             greetingText.text = "Come ti senti oggi?" // Titolo per l'inserimento mood
             greetingText.visibility = View.VISIBLE
-            showFragment(MoodInputFragment.newInstance(userEmail), addToBackStack = true)
+            showFragment(MoodInputFragment.Companion.newInstance(userEmail), addToBackStack = true)
             clearSelectedTab()
         }
 
@@ -68,7 +70,7 @@ class HomeActivity : AppCompatActivity() {
         repositoryProvider.notificationRepository().scheduleDailyMoodReminder()
     }
 
-    private fun loadUserName(repositoryProvider: com.corsolp.domain.di.RepositoryProvider) {
+    private fun loadUserName(repositoryProvider: RepositoryProvider) {
         lifecycleScope.launch(Dispatchers.IO) {
             val user = repositoryProvider.userRepository().getUserByEmail(userEmail ?: "")
             withContext(Dispatchers.Main) {
@@ -93,7 +95,7 @@ class HomeActivity : AppCompatActivity() {
         // Titolo specifico per il calendario
         greetingText.text = "Come è andato questo mese?"
         greetingText.visibility = View.VISIBLE
-        showFragment(CalendarFragment.newInstance(userEmail))
+        showFragment(CalendarFragment.Companion.newInstance(userEmail))
         selectTab(1)
     }
 
@@ -106,7 +108,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun showProfile() {
         greetingText.visibility = View.GONE
-        showFragment(ProfileFragment.newInstance(userEmail))
+        showFragment(ProfileFragment.Companion.newInstance(userEmail))
         selectTab(4)
     }
 
