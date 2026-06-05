@@ -6,21 +6,48 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.ViewModelProvider
 import com.corsolp.domain.di.ServiceLocator
 import com.corsolp.domain.models.User
 import com.corsolp.ui.R
 import com.corsolp.ui.login.MainActivity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class RegisterActivity : AppCompatActivity() {
+
+    private lateinit var registerViewModel: RegisterViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
         val userRepository = ServiceLocator.requireRepositoryProvider().userRepository()
+        val factory = RegisterViewModelFactory(userRepository)
+        registerViewModel = ViewModelProvider(this, factory)[RegisterViewModel::class.java]
+
+        registerViewModel.registrationEvents.observe(this) { result ->
+            when (result) {
+                is RegisterViewModel.RegistrationResult.Success -> {
+                    Toast.makeText(
+                        this@RegisterActivity,
+                        "Registrazione completata! Ora effettua il login.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    finish()
+                }
+
+                is RegisterViewModel.RegistrationResult.Error -> {
+                    Toast.makeText(
+                        this@RegisterActivity,
+                        result.message,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
+
         val registerButton = findViewById<Button>(R.id.registerButton)
 
         registerButton.setOnClickListener {
@@ -78,32 +105,19 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             // Se tutto è valido, procediamo al salvataggio nel database
-            lifecycleScope.launch(Dispatchers.IO) {
-                val newUser = User(
-                    email = email,
-                    password = password,
-                    name = name,
-                    surname = surname,
-                    age = age,
-                    job = job,
-                    workHours = workHours,
-                    sleepHours = sleepHours,
-                    bio = bio
-                )
+            val newUser = User(
+                email = email,
+                password = password,
+                name = name,
+                surname = surname,
+                age = age,
+                job = job,
+                workHours = workHours,
+                sleepHours = sleepHours,
+                bio = bio
+            )
 
-                userRepository.insertUser(newUser)
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        this@RegisterActivity,
-                        "Registrazione completata! Ora effettua il login.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    val intent = Intent(this@RegisterActivity, MainActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
-                    finish()
-                }
-            }
+            registerViewModel.registerUser(newUser)
         }
     }
 }

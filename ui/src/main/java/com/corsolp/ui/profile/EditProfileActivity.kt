@@ -8,18 +8,15 @@ import android.widget.*
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.ViewModelProvider
 import com.corsolp.domain.di.ServiceLocator
-import com.corsolp.domain.models.User
 import com.corsolp.ui.R
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class EditProfileActivity : AppCompatActivity() {
 
     private var selectedImageUri: Uri? = null
     private lateinit var imgProfile: ImageView
+    private lateinit var editProfileViewModel: EditProfileViewModel
 
     // Picker per la galleria
     private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
@@ -37,7 +34,9 @@ class EditProfileActivity : AppCompatActivity() {
         val repositoryProvider = ServiceLocator.requireRepositoryProvider()
         val userRepository = repositoryProvider.userRepository()
         val preferencesRepository = repositoryProvider.preferencesRepository()
-        val email = preferencesRepository.getSavedUserEmail() ?: ""
+
+        val factory = EditProfileViewModelFactory(userRepository, preferencesRepository)
+        editProfileViewModel = ViewModelProvider(this, factory)[EditProfileViewModel::class.java]
 
         // Inizializzazione Viste
         imgProfile = findViewById(R.id.editProfileImage)
@@ -53,30 +52,49 @@ class EditProfileActivity : AppCompatActivity() {
         val editOreSonno = findViewById<EditText>(R.id.editOreSonno)
         val editStileVita = findViewById<EditText>(R.id.editStileVita)
 
-        // 1. PRE-COMPILAZIONE: Carica dati attuali dal DB
-        lifecycleScope.launch(Dispatchers.IO) {
-            val user = userRepository.getUserByEmail(email)
-            withContext(Dispatchers.Main) {
-                user?.let {
-                    editNome.setText(it.name)
-                    editCognome.setText(it.surname)
-                    editEta.setText(it.age.toString())
-                    editProfessione.setText(it.job)
-                    editOreLavoro.setText(it.workHours.toString())
-                    editOreSonno.setText(it.sleepHours.toString())
-                    editStileVita.setText(it.bio)
+        editProfileViewModel.currentUser.observe(this) { user ->
+            user?.let {
+                editNome.setText(it.name)
+                editCognome.setText(it.surname)
+                editEta.setText(it.age.toString())
+                editProfessione.setText(it.job)
+                editOreLavoro.setText(it.workHours.toString())
+                editOreSonno.setText(it.sleepHours.toString())
+                editStileVita.setText(it.bio)
 
-                    if (!it.profileImageUri.isNullOrEmpty()) {
-                        try {
-                            imgProfile.setImageURI(Uri.parse(it.profileImageUri))
-                        } catch (e: Exception) { e.printStackTrace() }
+                if (!it.profileImageUri.isNullOrEmpty()) {
+                    try {
+                        imgProfile.setImageURI(Uri.parse(it.profileImageUri))
+                    } catch (e: Exception) {
+                        e.printStackTrace()
                     }
-
-                    findViewById<TextView>(R.id.editProfileNameLabel).text = it.name
-                    findViewById<TextView>(R.id.editProfileJobLabel).text = it.job
                 }
+
+                findViewById<TextView>(R.id.editProfileNameLabel).text = it.name
+                findViewById<TextView>(R.id.editProfileJobLabel).text = it.job
             }
         }
+
+        editProfileViewModel.saveResult.observe(this) { result ->
+            when (result) {
+                is EditProfileViewModel.SaveResult.Success -> {
+                    Toast.makeText(this@EditProfileActivity, "Profilo aggiornato!", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+                is EditProfileViewModel.SaveResult.Error -> {
+                    Toast.makeText(this@EditProfileActivity, result.message, Toast.LENGTH_LONG).show()
+                }
+                null -> {}
+            }
+        }
+
+        editProfileViewModel.validationError.observe(this) { message ->
+            message?.let {
+                Toast.makeText(this@EditProfileActivity, "Controlla i dati inseriti. Alcuni campi contengono errori.", Toast.LENGTH_LONG).show()
+            }
+        }
+
+        editProfileViewModel.loadUser()
 
         // 2. UPLOAD FOTO
         btnUpload.setOnClickListener {
@@ -86,20 +104,24 @@ class EditProfileActivity : AppCompatActivity() {
         // 3. SALVATAGGIO
         btnSalva.setOnClickListener {
             // Estraiamo i valori inseriti dall'utente (fall-back a 0f se il campo è vuoto)
-            val eta = editEta.text.toString().toIntOrNull() ?: 0
-            val oreLavoro = editOreLavoro.text.toString().toFloatOrNull() ?: 0f
-            val oreSonno = editOreSonno.text.toString().toFloatOrNull() ?: 0f
+            val eta = editEta.text.toString()
+            val oreLavoro = editOreLavoro.text.toString()
+            val oreSonno = editOreSonno.text.toString()
+
+            val ageValue = eta.toIntOrNull() ?: 0
+            val workHoursValue = oreLavoro.toFloatOrNull() ?: 0f
+            val sleepHoursValue = oreSonno.toFloatOrNull() ?: 0f
 
             var isValid = true
 
             // Controllo Età (limite massimo 200, possiamo anche evitare l'età a 0)
-            if (eta <= 0 || eta > 200) {
+            if (ageValue <= 0 || ageValue > 200) {
                 editEta.error = "Inserisci un'età valida compresa tra 1 e 200 anni"
                 isValid = false
             }
 
             // Controllo Somma Ore (limite massimo 24 ore)
-            if (oreLavoro + oreSonno > 24f) {
+            if (workHoursValue + sleepHoursValue > 24f) {
                 editOreLavoro.error = "La somma di lavoro e sonno non può superare 24 ore"
                 editOreSonno.error = "La somma di lavoro e sonno non può superare 24 ore"
                 isValid = false
@@ -115,26 +137,17 @@ class EditProfileActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            lifecycleScope.launch(Dispatchers.IO) {
-                val currentUser = userRepository.getUserByEmail(email)
-                val updatedUser = User(
-                    email = email,
-                    password = currentUser?.password ?: "",
-                    name = editNome.text.toString(),
-                    surname = editCognome.text.toString(),
-                    age = editEta.text.toString().toIntOrNull() ?: 0,
-                    job = editProfessione.text.toString(),
-                    workHours = editOreLavoro.text.toString().toFloatOrNull() ?: 0f,
-                    sleepHours = editOreSonno.text.toString().toFloatOrNull() ?: 0f,
-                    bio = editStileVita.text.toString(),
-                    profileImageUri = selectedImageUri?.toString() ?: currentUser?.profileImageUri
-                )
-                userRepository.insertUser(updatedUser)
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(this@EditProfileActivity, "Profilo aggiornato!", Toast.LENGTH_SHORT).show()
-                    finish() // Torna al profilo
-                }
-            }
+            editProfileViewModel.saveProfile(
+                email = preferencesRepository.getSavedUserEmail() ?: "",
+                name = editNome.text.toString(),
+                surname = editCognome.text.toString(),
+                ageText = editEta.text.toString(),
+                job = editProfessione.text.toString(),
+                workHoursText = editOreLavoro.text.toString(),
+                sleepHoursText = editOreSonno.text.toString(),
+                bio = editStileVita.text.toString(),
+                selectedImageUri = selectedImageUri?.toString()
+            )
         }
 
         btnAnnulla.setOnClickListener { finish() }

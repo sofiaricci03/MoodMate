@@ -10,19 +10,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.ViewModelProvider
 import com.corsolp.domain.di.ServiceLocator
-import com.corsolp.domain.models.Mood
 import com.corsolp.ui.R
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class MoodInputFragment : Fragment() {
-    private var selectedMood: String? = null
+
+    private lateinit var viewModel: MoodInputViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,92 +27,69 @@ class MoodInputFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val repositoryProvider = ServiceLocator.requireRepositoryProvider()
-        val moodRepository = repositoryProvider.moodRepository()
-        val preferencesRepository = repositoryProvider.preferencesRepository()
-        val userEmail = arguments?.getString(ARG_USER_EMAIL)
-            ?: preferencesRepository.getSavedUserEmail()
-            ?: ""
+        val provider = ServiceLocator.requireRepositoryProvider()
+        val factory = MoodInputViewModelFactory(
+            provider.moodRepository(),
+            provider.preferencesRepository()
+        )
 
-        val sdfVisual = SimpleDateFormat("d MMMM", Locale.ITALIAN)
-        val sdfDb = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val today = Date()
-        val dateForDb = sdfDb.format(today)
+        viewModel = ViewModelProvider(this, factory)[MoodInputViewModel::class.java]
 
-        view.findViewById<TextView>(R.id.currentDateText).text = sdfVisual.format(today)
+        setupMoodButtons(view)
 
-        setupMoodButton(view, R.id.cardFelice, "Felice")
-        setupMoodButton(view, R.id.cardSereno, "Sereno")
-        setupMoodButton(view, R.id.cardNeutrale, "Neutrale")
-        setupMoodButton(view, R.id.cardTriste, "Triste")
-        setupMoodButton(view, R.id.cardArrabbiato, "Arrabbiato")
-        setupMoodButton(view, R.id.cardStressato, "Stressato")
-
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-            val existingMood = moodRepository.getMoodByDate(userEmail, dateForDb)
-            withContext(Dispatchers.Main) {
-                existingMood?.let { showExistingMood(view, it) }
-            }
-        }
-
-        val saveBtn = view.findViewById<Button>(R.id.saveMoodButton)
-        saveBtn.setOnClickListener {
+        view.findViewById<Button>(R.id.saveMoodButton).setOnClickListener {
             val note = view.findViewById<EditText>(R.id.editMoodNote).text.toString()
-            val mood = selectedMood
+            viewModel.saveMood(note)
+        }
 
-            if (mood == null) {
-                Toast.makeText(requireContext(), "Seleziona un umore!", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+        viewModel.uiState.observe(viewLifecycleOwner) { state ->
+            updateUI(view, state)
+        }
+    }
+
+    private fun setupMoodButtons(view: View) {
+        val moodCards = mapOf(
+            R.id.cardFelice      to "Felice",
+            R.id.cardSereno      to "Sereno",
+            R.id.cardNeutrale    to "Neutrale",
+            R.id.cardTriste      to "Triste",
+            R.id.cardArrabbiato  to "Arrabbiato",
+            R.id.cardStressato   to "Stressato"
+        )
+        for ((cardId, moodName) in moodCards) {
+            view.findViewById<CardView>(cardId).setOnClickListener {
+                viewModel.selectMood(moodName)
+                Toast.makeText(requireContext(), "Hai selezionato: $moodName", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
 
+    private fun updateUI(view: View, state: MoodInputUiState) {
+        val saveBtn   = view.findViewById<Button>(R.id.saveMoodButton)
+        val noteEdit  = view.findViewById<EditText>(R.id.editMoodNote)
+        val dateText  = view.findViewById<TextView>(R.id.currentDateText)
+        val header    = view.findViewById<TextView>(R.id.moodInputHeader)
+
+        dateText.text = state.currentDateVisual
+
+        // Mostra errore se presente
+        state.errorMessage?.let {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        }
+
+        if (state.isSaved && state.todayMood != null) {
+            // Mood già inserito oggi — blocca la UI
             saveBtn.isEnabled = false
-
-            viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-                val existingMood = moodRepository.getMoodByDate(userEmail, dateForDb)
-
-                if (existingMood != null) {
-                    withContext(Dispatchers.Main) {
-                        showExistingMood(view, existingMood)
-                    }
-                    return@launch
-                }
-
-                val newMood = Mood(
-                    userEmail = userEmail,
-                    date = dateForDb,
-                    moodType = mood,
-                    note = note
-                )
-
-                moodRepository.insertMood(newMood)
-
-                withContext(Dispatchers.Main) {
-                    showExistingMood(view, newMood)
-                    Toast.makeText(requireContext(), "Mood salvato!", Toast.LENGTH_SHORT).show()
-                }
-            }
+            saveBtn.text = "Umore già inserito oggi"
+            noteEdit.isEnabled = false
+            noteEdit.setText(state.todayMood.note)
+            header.text = "Mood già inserito oggi: ${state.todayMood.moodType}"
+        } else {
+            // Mood da inserire
+            saveBtn.isEnabled = true
+            saveBtn.text = "Salva"
+            header.text = "Come ti senti oggi?"
         }
-    }
-
-    private fun setupMoodButton(view: View, cardId: Int, moodName: String) {
-        view.findViewById<CardView>(cardId).setOnClickListener {
-            selectedMood = moodName
-            Toast.makeText(requireContext(), "Hai selezionato: $moodName", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun showExistingMood(view: View, mood: Mood) {
-        val saveBtn = view.findViewById<Button>(R.id.saveMoodButton)
-        val noteEdit = view.findViewById<EditText>(R.id.editMoodNote)
-
-        saveBtn.isEnabled = false
-        saveBtn.text = "Umore gia' inserito oggi"
-
-        noteEdit.isEnabled = false
-        noteEdit.setText(mood.note)
-
-        view.findViewById<TextView>(R.id.moodInputHeader).text =
-            "Mood gia' inserito oggi: ${mood.moodType}"
     }
 
     companion object {

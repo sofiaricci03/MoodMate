@@ -7,18 +7,15 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.ViewModelProvider
 import com.corsolp.domain.di.ServiceLocator
 import com.corsolp.ui.databinding.ActivityMainBinding
 import com.corsolp.ui.home.HomeActivity
 import com.corsolp.ui.registration.RegisterActivity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var loginViewModel: LoginViewModel
     // Il ViewBinding serve per accedere agli elementi grafici (ID) senza usare tanti findViewById
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,14 +30,51 @@ class MainActivity : AppCompatActivity() {
         val userRepository = repositoryProvider.userRepository()
         val preferencesRepository = repositoryProvider.preferencesRepository()
 
-        // Controlla se l'utente ha già loggato in precedenza
-        val savedEmail = preferencesRepository.getSavedUserEmail()
-        if (savedEmail != null) {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-            finish()
-            return // Ferma l'esecuzione di onCreate, non serve disegnare il Login!
+        val factory = LoginViewModelFactory(userRepository, preferencesRepository)
+        loginViewModel = ViewModelProvider(this, factory)[LoginViewModel::class.java]
+
+        loginViewModel.loginResult.observe(this) { result ->
+            when (result) {
+                is LoginViewModel.LoginResult.AlreadyLoggedIn -> {
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+
+                is LoginViewModel.LoginResult.Success -> {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Benvenuto!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    val emailInserita = binding.emailEditText.text.toString()
+                    val intent = Intent(this@MainActivity, HomeActivity::class.java)
+                    intent.putExtra("USER_EMAIL", emailInserita)
+                    startActivity(intent)
+                    finish()
+                }
+
+                is LoginViewModel.LoginResult.InvalidCredentials -> {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Email o password errati",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                is LoginViewModel.LoginResult.EmptyFields -> {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Inserisci email e password",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
+
+        // Controlla se l'utente ha già loggato in precedenza
+        loginViewModel.checkSavedUser()
 
         // Gestione dei margini per le barre di sistema (status bar e navigation bar)
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
@@ -56,46 +90,9 @@ class MainActivity : AppCompatActivity() {
             val passwordInserita = binding.passwordEditText.text.toString()
 
             // Controllo che i campi non siano vuoti
-            if (emailInserita.isNotEmpty() && passwordInserita.isNotEmpty()) {
-
-                // Usiamo Dispatchers.IO perché la ricerca nel database è un'operazione di lettura su disco
-                lifecycleScope.launch(Dispatchers.IO) {
-                    // Chiama il metodo login del repository (che a sua volta interroga il DAO di Room)
-                    val loggedUser = userRepository.login(emailInserita, passwordInserita)
-
-                    // Torniamo al thread principale per mostrare il risultato all'utente
-                    withContext(Dispatchers.Main) {
-                        if (loggedUser != null) {
-
-                            // Salva l'email dell'utente loggato
-                            preferencesRepository.saveUserEmail(emailInserita)
-                            Toast.makeText(
-                                this@MainActivity,
-                                "Benvenuto ${loggedUser.email}!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-
-                            // Navigazione verso la Home
-                            val intent = Intent(this@MainActivity, HomeActivity::class.java)
-                            intent.putExtra("USER_EMAIL", emailInserita)  // Passiamo l'email alla Home
-                            startActivity(intent)
-                            finish() // Chiude la MainActivity così l'utente non torna al login col tasto indietro
-
-                        } else {
-                            Toast.makeText(
-                                // Se il database restituisce null, le credenziali sono sbagliate
-                                this@MainActivity,
-                                "Email o password errati",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-                }
-            } else {
-                // Avviso se l'utente tenta di cliccare senza aver scritto nulla
-                Toast.makeText(this, "Inserisci email e password", Toast.LENGTH_SHORT).show()
-            }
+            loginViewModel.login(emailInserita, passwordInserita)
         }
+
         //Gestione del pulsante di registrazione
         binding.registerLink.setOnClickListener {
             // Apre semplicemente la pagina di registrazione
