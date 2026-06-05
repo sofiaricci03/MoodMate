@@ -16,9 +16,9 @@ L'applicazione è suddivisa in 4 moduli indipendenti:
 
 ### 1. Modulo App
 Contiene le entry point dell'applicazione. AndroidManifest.xml: Definisce 4 Activity principali:
-- MainActivity (Login) - Activity principale lanciata all'avvio
+- LoginActivity - Activity principale lanciata all'avvio
 - RegisterActivity - Pagina di registrazione
-- HomeActivity - Home page principale
+- MainActivity - Home page principale
 - EditProfileActivity - Pagina di modifica dei dati personali
 Moodmate.kt è la Classe Application che inizializza il Service Locator per l'iniezione delle dipendenze
 
@@ -61,7 +61,7 @@ Il progetto è ben organizzato in 4 moduli indipendenti (app, ui, domain, data),
 
 L'applicazione è stata progettata seguendo i principi delle moderne architetture software Android, con particolare attenzione alla modularità, alla manutenibilità del codice e alla scalabilità del progetto. La separazione delle responsabilità tra i diversi livelli dell'applicazione consente di ottenere una struttura chiara e ben organizzata, facilitando sia lo sviluppo che le future attività di manutenzione.
 
-Dal punto di vista tecnologico, il progetto adotta uno stack moderno e consolidato. L'intera applicazione è sviluppata in Kotlin scelto per la sua efficienza per la programmazione in sistemi mobile Android. La gestione dello stato dell'interfaccia utente è affidata all'architettura ViewModel associata a LiveData, che consente un aggiornamento efficiente e reattivo delle schermate. Le operazioni asincrone vengono invece gestite tramite Kotlin Coroutines migliorando l'esperienza utente. 
+Dal punto di vista tecnologico, il progetto adotta uno stack moderno e consolidato. L'intera applicazione è sviluppata in Kotlin scelto per la sua efficienza per la programmazione in sistemi mobile Android. La gestione dello stato dell'interfaccia utente è affidata all'architettura ViewModel associata a LiveData per la maggior parte delle activity e fragment, che consente un aggiornamento efficiente e reattivo delle schermate. Le operazioni asincrone vengono invece gestite tramite Kotlin Coroutines migliorando l'esperienza utente. 
 Per la persistenza locale dei dati è stata utilizzata la libreria Room, che fornisce un livello di astrazione robusto e sicuro. Le attività pianificate e le operazioni eseguite in background sono invece gestite tramite WorkManager, assicurando affidabilità.
 
 Un ulteriore elemento di qualità architetturale è rappresentato dalla gestione centralizzata delle dipendenze attraverso un Service Locator implementato nella classe Moodmate.kt. Questo approccio permette di mantenere una configurazione coerente dei componenti applicativi, facilita l'introduzione di oggetti simulati (mock) durante i test e riduce l'accoppiamento tra i diversi moduli dell'applicazione.
