@@ -16,7 +16,7 @@ L'applicazione è suddivisa in 4 moduli indipendenti:
 
 ### 1. Modulo App
 Contiene le entry point dell'applicazione. AndroidManifest.xml: Definisce 4 Activity principali:
-- LoginActivity - Activity principale lanciata all'avvio
+- LoginActivity - Activity di login lanciata all'avvio
 - RegisterActivity - Pagina di registrazione
 - MainActivity - Home page principale
 - EditProfileActivity - Pagina di modifica dei dati personali
