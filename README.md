@@ -39,7 +39,7 @@ ui/src/main/java/com/corsolp/ui/
 - moodInput: input dello stato d'umore
 - statistics: tatistiche e analitiche
 - profile: profilo utente
-- editeProfile: modifica dati profilo utente
+- editProfile: modifica dati profilo utente
 
 Le tecnologie adottate sono state ViewModel + LiveData (per la gestione dello stato UI) e Kotlin Coroutines (per le operazioni asincrone)
 
@@ -73,5 +73,5 @@ Le funzionalità implementate sono state progettate con un focus chiaro e ben de
 Nonostante il progetto soddisfi pienamente i requisiti funzionali e architetturali, si possono prevedere le seguenti estensioni future:
 - possibilità di una visione mensile delle statistiche
 - cambiamento dell'umore giornaliero anche se già inserito e riprogrammazione dei consigli per quella giornata
-- consigli salutari presi da un'API
+- integrazione di un'API esterna per i consigli salutari
 - frasi motivazionali disponibili in italiano e dipendenti dall'umore inserito dall'utente
